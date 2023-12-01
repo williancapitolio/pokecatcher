@@ -1,28 +1,28 @@
 import Axios from "axios";
 
-import { Page } from "../types/page";
+/* import { Page } from "../types/page"; */
 
-import {
+/* import {
   EvolutionChain,
   Pokemon,
   PokemonResults,
   PokemonsResponse,
   SpeciesPokemon,
-} from "../interfaces/Pokemon";
+} from "../interfaces/Pokemon"; */
 
-const BASE_URL = "https://pokeapi.co/api/v2";
+export const BASE_URL = "https://pokeapi.co/api/v2";
 
-async function getData<T>(uri: string): Promise<T> {
+export async function getData<T>(uri: string): Promise<T> {
   const response = await Axios.get<T>(uri);
 
   return response.data;
 }
 
-export async function getPokemonResults(): Promise<Page<PokemonResults>> {
+/* export async function getPokemonResults(uri: string): Promise<Page<PokemonResults>> {
   return getData<Promise<Page<PokemonResults>>>(BASE_URL + "/pokemon");
-}
+} */
 
-export async function getPokemonsList(): Promise<PokemonsResponse> {
+/* export async function getPokemonsList(): Promise<PokemonsResponse> {
   const pokemonList: PokemonsResponse = { data: [], page: null };
 
   const pokemonsResults = await getPokemonResults();
@@ -31,6 +31,7 @@ export async function getPokemonsList(): Promise<PokemonsResponse> {
 
   pokemonsResults.results.map(async ({ url }) => {
     const data = await getData<Promise<Pokemon>>(url);
+    console.log(data)
 
     pokemonList.data.push(data);
 
@@ -48,4 +49,4 @@ export async function getPokemonsList(): Promise<PokemonsResponse> {
   });
 
   return pokemonList;
-}
+} */
