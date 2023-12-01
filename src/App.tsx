@@ -20,13 +20,16 @@ export function App() {
 
   const { pokemons, loading } = useAppSelector((state) => state.pokemon);
 
-  const handleClickPrevious = async () => {
-    await dispatch(paginatePokemons(pokemons.previous as string));
-  };
-
-  const handleClickNext = async () => {
-    await dispatch(paginatePokemons(pokemons.next as string));
-  };
+  async function handlePaginatePokemons(
+    ev: React.MouseEvent<HTMLButtonElement>
+  ): Promise<void> {
+    ev.preventDefault();
+    if (ev.currentTarget.innerText === "Anterior") {
+      await dispatch(paginatePokemons(pokemons.previous as string));
+    } else if (ev.currentTarget.innerText === "Próximo") {
+      await dispatch(paginatePokemons(pokemons.next as string));
+    }
+  }
 
   return (
     <section>
@@ -40,19 +43,20 @@ export function App() {
             {pokemons.results.map((pokemon, index) => (
               <div key={index}>
                 <p>{pokemon.name}</p>
+                <span>{pokemon.url}</span>
               </div>
             ))}
             <button
               disabled={pokemons.previous ? false : true}
-              onClick={handleClickPrevious}
+              onClick={handlePaginatePokemons}
             >
               Anterior
             </button>
             <button
               disabled={pokemons.next ? false : true}
-              onClick={handleClickNext}
+              onClick={handlePaginatePokemons}
             >
-              Próxima
+              Próximo
             </button>
           </>
         )}
