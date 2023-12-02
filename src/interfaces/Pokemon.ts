@@ -3,6 +3,7 @@ import { Page } from "../types/page";
 export interface PokemonResults {
   name: string;
   url: string;
+  pokemon: Pokemon;
 }
 
 export interface PokemonsResponse {
@@ -29,6 +30,8 @@ export interface Pokemon {
   weight: number;
   abilities: Array<Ability>;
   stats: Array<Stat>;
+  favorite: boolean;
+  caught: boolean;
 }
 
 export interface SpeciesPokemon {

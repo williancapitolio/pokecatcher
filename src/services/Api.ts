@@ -1,14 +1,6 @@
 import Axios from "axios";
-
-/* import { Page } from "../types/page"; */
-
-/* import {
-  EvolutionChain,
-  Pokemon,
-  PokemonResults,
-  PokemonsResponse,
-  SpeciesPokemon,
-} from "../interfaces/Pokemon"; */
+import { Pokemon, PokemonResults } from "../interfaces/Pokemon";
+import { Page } from "../types/page";
 
 export const BASE_URL = "https://pokeapi.co/api/v2";
 
@@ -18,35 +10,36 @@ export async function getData<T>(uri: string): Promise<T> {
   return response.data;
 }
 
-/* export async function getPokemonResults(uri: string): Promise<Page<PokemonResults>> {
-  return getData<Promise<Page<PokemonResults>>>(BASE_URL + "/pokemon");
-} */
+export async function getPokemonsData(
+  uri: string
+): Promise<Page<PokemonResults>> {
+  const response = await getData<Page<PokemonResults>>(uri);
 
-/* export async function getPokemonsList(): Promise<PokemonsResponse> {
-  const pokemonList: PokemonsResponse = { data: [], page: null };
+  for (let index = 0; index < response.results.length; index++) {
+    const current = response.results[index];
 
-  const pokemonsResults = await getPokemonResults();
+    const responsePokemon = (await getData(current.url)) as Pokemon;
 
-  pokemonList.page = pokemonsResults;
+    current.pokemon = {
+      ...current.pokemon,
+      favorite: responsePokemon.favorite
+        ? (responsePokemon.favorite = true)
+        : (responsePokemon.favorite = false),
+      caught: responsePokemon.caught
+        ? (responsePokemon.caught = true)
+        : (responsePokemon.caught = false),
+    };
 
-  pokemonsResults.results.map(async ({ url }) => {
-    const data = await getData<Promise<Pokemon>>(url);
-    console.log(data)
+    /* responsePokemon.favorite
+      ? (responsePokemon.favorite = true)
+      : (responsePokemon.favorite = false);
 
-    pokemonList.data.push(data);
+    responsePokemon.caught
+      ? (responsePokemon.caught = true)
+      : (responsePokemon.caught = false); */
 
-    pokemonList.data.map(async ({ species }) => {
-      const speciesData = await getData<SpeciesPokemon>(species.url);
+    current.pokemon = responsePokemon;
+  }
 
-      species.specie = speciesData;
-
-      const evolutionData = await getData<EvolutionChain>(
-        speciesData.evolution_chain.url
-      );
-
-      species.specie.evolution_chain.evolution = evolutionData;
-    });
-  });
-
-  return pokemonList;
-} */
+  return response;
+}

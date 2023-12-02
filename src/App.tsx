@@ -3,15 +3,16 @@ import { useCallback, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./hooks/use-app-redux";
 
 import {
-  paginatePokemons,
   getPokemons,
+  toggleCapture,
+  toggleFavorite,
 } from "./features/pokemon/pokemon-slice";
 
 export function App() {
   const dispatch = useAppDispatch();
 
   const initApp = useCallback(async () => {
-    await dispatch(getPokemons());
+    await dispatch(getPokemons(""));
   }, [dispatch]);
 
   useEffect(() => {
@@ -20,8 +21,9 @@ export function App() {
 
   const { pokemons, loading } = useAppSelector((state) => state.pokemon);
 
-  async function handlePaginatePokemons(uri: string): Promise<void> {
-    await dispatch(paginatePokemons(uri));
+  async function handlePaginatePokemons(url: string): Promise<void> {
+    await dispatch(getPokemons(url));
+    scrollTo({ top: 0, behavior: "smooth" });
   }
 
   return (
@@ -35,8 +37,26 @@ export function App() {
           <>
             {pokemons.results.map((pokemon, index) => (
               <div key={index}>
-                <p>{pokemon.name}</p>
-                <span>{pokemon.url}</span>
+                <span>{pokemon.pokemon.id}</span>
+
+                <img
+                  src={
+                    pokemon.pokemon.sprites.other["official-artwork"]
+                      .front_default
+                  }
+                  alt={"Imagem de " + pokemon.pokemon.name}
+                />
+                <p>{pokemon.pokemon.name}</p>
+                <button
+                  onClick={() => dispatch(toggleFavorite(pokemon.pokemon.id))}
+                >
+                  {pokemon.pokemon.favorite ? "Desfavoritar" : "Favoritar"}
+                </button>
+                <button
+                  onClick={() => dispatch(toggleCapture(pokemon.pokemon.id))}
+                >
+                  {pokemon.pokemon.caught ? "Libertar" : "Capturar"}
+                </button>
               </div>
             ))}
             <button
