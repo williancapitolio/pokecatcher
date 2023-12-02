@@ -20,23 +20,13 @@ export async function getPokemonsData(
 
     const responsePokemon = (await getData(current.url)) as Pokemon;
 
-    current.pokemon = {
-      ...current.pokemon,
-      favorite: responsePokemon.favorite
-        ? (responsePokemon.favorite = true)
-        : (responsePokemon.favorite = false),
-      caught: responsePokemon.caught
-        ? (responsePokemon.caught = true)
-        : (responsePokemon.caught = false),
-    };
-
-    /* responsePokemon.favorite
+    responsePokemon.favorite
       ? (responsePokemon.favorite = true)
       : (responsePokemon.favorite = false);
 
     responsePokemon.caught
       ? (responsePokemon.caught = true)
-      : (responsePokemon.caught = false); */
+      : (responsePokemon.caught = false);
 
     current.pokemon = responsePokemon;
   }

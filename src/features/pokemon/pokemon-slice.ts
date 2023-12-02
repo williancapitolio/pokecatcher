@@ -8,6 +8,8 @@ import { PokemonResults } from "./../../interfaces/Pokemon";
 
 interface PokemonState {
   pokemons: Page<PokemonResults>;
+  pokemonsFavorites: Array<number>;
+  pokemonsCaptureds: Array<number>;
   loading: boolean;
   errors: unknown;
 }
@@ -19,6 +21,8 @@ const initialState: PokemonState = {
     previous: null,
     results: [],
   },
+  pokemonsFavorites: [],
+  pokemonsCaptureds: [],
   loading: false,
   errors: null,
 };

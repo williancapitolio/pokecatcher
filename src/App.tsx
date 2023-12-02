@@ -21,9 +21,20 @@ export function App() {
 
   const { pokemons, loading } = useAppSelector((state) => state.pokemon);
 
-  async function handlePaginatePokemons(url: string): Promise<void> {
-    await dispatch(getPokemons(url));
-    scrollTo({ top: 0, behavior: "smooth" });
+  async function handlePaginatePokemons(
+    url: string,
+    ev: React.MouseEvent<HTMLButtonElement>
+  ): Promise<void> {
+    const button = ev.target as HTMLButtonElement;
+
+    const initialButtonValue = button.innerText;
+
+    button.innerText = "Carregando...";
+
+    await dispatch(getPokemons(url)).finally(() => {
+      scrollTo({ top: 0, behavior: "smooth" });
+      button.innerText = initialButtonValue;
+    });
   }
 
   return (
@@ -61,15 +72,17 @@ export function App() {
             ))}
             <button
               disabled={pokemons.previous ? false : true}
-              onClick={() =>
-                handlePaginatePokemons(pokemons.previous as string)
+              onClick={(ev) =>
+                handlePaginatePokemons(pokemons.previous as string, ev)
               }
             >
               Anterior
             </button>
             <button
               disabled={pokemons.next ? false : true}
-              onClick={() => handlePaginatePokemons(pokemons.next as string)}
+              onClick={(ev) =>
+                handlePaginatePokemons(pokemons.next as string, ev)
+              }
             >
               Próximo
             </button>
