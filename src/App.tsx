@@ -7,6 +7,7 @@ import {
   toggleCapture,
   toggleFavorite,
 } from "./features/pokemon/pokemon-slice";
+import { FindOnLocalStorage } from "./utils/find-on-local-storage";
 
 export function App() {
   const dispatch = useAppDispatch();
@@ -61,7 +62,10 @@ export function App() {
                 <button
                   onClick={() => dispatch(toggleFavorite(pokemon.pokemon.id))}
                 >
-                  {pokemon.pokemon.favorite ? "Desfavoritar" : "Favoritar"}
+                  {/* {pokemon.pokemon.favorite ? "Desfavoritar" : "Favoritar"} */}
+                  {FindOnLocalStorage("pokemons-favorites", pokemon.pokemon.id)
+                    ? "Desfavoritar"
+                    : "Favoritar"}
                 </button>
                 <button
                   onClick={() => dispatch(toggleCapture(pokemon.pokemon.id))}

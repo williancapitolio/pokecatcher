@@ -5,14 +5,19 @@ import { BASE_URL, getPokemonsData } from "../../services/Api";
 import { Page } from "../../types/page";
 
 import { PokemonResults } from "./../../interfaces/Pokemon";
+import { GetLocalStorageData } from "../../utils/get-local-storage-data";
+import { ParseNumberToString } from "../../utils/parse-number-to-string";
 
 interface PokemonState {
   pokemons: Page<PokemonResults>;
-  pokemonsFavorites: Array<number>;
-  pokemonsCaptureds: Array<number>;
+  pokemonsFavorites: Array<string>;
+  pokemonsCaptured: Array<string>;
   loading: boolean;
   errors: unknown;
 }
+
+const POKEMONS_FAVORITES = "pokemons-favorites";
+const POKEMONS_CAPTURED = "pokemons-captured";
 
 const initialState: PokemonState = {
   pokemons: {
@@ -21,8 +26,8 @@ const initialState: PokemonState = {
     previous: null,
     results: [],
   },
-  pokemonsFavorites: [],
-  pokemonsCaptureds: [],
+  pokemonsFavorites: GetLocalStorageData<Array<string>>(POKEMONS_FAVORITES, []),
+  pokemonsCaptured: GetLocalStorageData<Array<string>>(POKEMONS_CAPTURED, []),
   loading: false,
   errors: null,
 };
@@ -46,16 +51,56 @@ export const pokemonSlice = createSlice({
       const pokemonToFavorite = state.pokemons.results.find(
         (poke) => poke.pokemon.id === action.payload
       );
-      if (pokemonToFavorite)
+
+      if (pokemonToFavorite) {
         pokemonToFavorite.pokemon.favorite =
           !pokemonToFavorite.pokemon.favorite;
+
+        const pokemonToFavoriteId = ParseNumberToString(
+          pokemonToFavorite.pokemon.id
+        );
+
+        const isPokemonAlreadyFavorite = state.pokemonsFavorites.find(
+          (favorite) => favorite === pokemonToFavoriteId
+        );
+
+        if (pokemonToFavorite.pokemon.favorite) {
+          if (!isPokemonAlreadyFavorite) {
+            state.pokemonsFavorites.push(pokemonToFavoriteId);
+          }
+          localStorage.setItem(
+            POKEMONS_FAVORITES,
+            JSON.stringify(state.pokemonsFavorites)
+          );
+        }
+
+        if (!pokemonToFavorite.pokemon.favorite) {
+          state.pokemonsFavorites.filter(
+            (favorites) => favorites !== pokemonToFavoriteId
+          );
+          localStorage.setItem(
+            POKEMONS_FAVORITES,
+            JSON.stringify(state.pokemonsFavorites)
+          );
+        }
+
+        /* localStorage.setItem(
+          POKEMONS_FAVORITES,
+          JSON.stringify(state.pokemonsFavorites)
+        ); */
+      }
     },
     toggleCapture: (state, action: PayloadAction<number>) => {
       const pokemonToCapture = state.pokemons.results.find(
         (poke) => poke.pokemon.id === action.payload
       );
-      if (pokemonToCapture)
+      if (pokemonToCapture) {
         pokemonToCapture.pokemon.caught = !pokemonToCapture.pokemon.caught;
+        localStorage.setItem(
+          POKEMONS_CAPTURED,
+          JSON.stringify(pokemonToCapture.pokemon.id)
+        );
+      }
     },
   },
   extraReducers: (builder) => {
