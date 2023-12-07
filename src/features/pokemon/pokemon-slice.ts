@@ -1,15 +1,17 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { BASE_URL, getPokemonsData } from "../../services/Api";
+import { BASE_URL, getData, getPokemonsData } from "../../services/Api";
 
-import { Page } from "../../types/page";
-
-import { PokemonResults } from "./../../interfaces/Pokemon";
 import { GetLocalStorageData } from "../../utils/get-local-storage-data";
 import { ParseNumberToString } from "../../utils/parse-number-to-string";
 
+import { Page } from "../../types/page";
+
+import { Pokemon, PokemonResults } from "./../../interfaces/Pokemon";
+
 interface PokemonState {
   pokemons: Page<PokemonResults>;
+  singlePokemon: Pokemon | null;
   pokemonsFavorites: Array<string>;
   pokemonsCaptured: Array<string>;
   loading: boolean;
@@ -26,6 +28,7 @@ const initialState: PokemonState = {
     previous: null,
     results: [],
   },
+  singlePokemon: null,
   pokemonsFavorites: GetLocalStorageData<Array<string>>(POKEMONS_FAVORITES, []),
   pokemonsCaptured: GetLocalStorageData<Array<string>>(POKEMONS_CAPTURED, []),
   loading: false,
@@ -43,6 +46,17 @@ export const getPokemons = createAsyncThunk<Page<PokemonResults>, string>(
   }
 );
 
+export const getSinglePokemon = createAsyncThunk<Pokemon, string>(
+  "pokemons/getSinglePokemon",
+  async (id, thunkAPI) => {
+    try {
+      return await getData<Pokemon>(BASE_URL + "/pokemon/" + id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const pokemonSlice = createSlice({
   name: "pokemons",
   initialState,
@@ -53,41 +67,22 @@ export const pokemonSlice = createSlice({
       );
 
       if (pokemonToFavorite) {
-        pokemonToFavorite.pokemon.favorite =
-          !pokemonToFavorite.pokemon.favorite;
-
         const pokemonToFavoriteId = ParseNumberToString(
           pokemonToFavorite.pokemon.id
         );
 
-        const isPokemonAlreadyFavorite = state.pokemonsFavorites.find(
-          (favorite) => favorite === pokemonToFavoriteId
-        );
-
-        if (pokemonToFavorite.pokemon.favorite) {
-          if (!isPokemonAlreadyFavorite) {
-            state.pokemonsFavorites.push(pokemonToFavoriteId);
-          }
-          localStorage.setItem(
-            POKEMONS_FAVORITES,
-            JSON.stringify(state.pokemonsFavorites)
-          );
-        }
-
-        if (!pokemonToFavorite.pokemon.favorite) {
-          state.pokemonsFavorites.filter(
+        if (state.pokemonsFavorites.includes(pokemonToFavoriteId)) {
+          state.pokemonsFavorites = state.pokemonsFavorites.filter(
             (favorites) => favorites !== pokemonToFavoriteId
           );
-          localStorage.setItem(
-            POKEMONS_FAVORITES,
-            JSON.stringify(state.pokemonsFavorites)
-          );
+        } else {
+          state.pokemonsFavorites.push(pokemonToFavoriteId);
         }
 
-        /* localStorage.setItem(
+        localStorage.setItem(
           POKEMONS_FAVORITES,
           JSON.stringify(state.pokemonsFavorites)
-        ); */
+        );
       }
     },
     toggleCapture: (state, action: PayloadAction<number>) => {
@@ -95,10 +90,21 @@ export const pokemonSlice = createSlice({
         (poke) => poke.pokemon.id === action.payload
       );
       if (pokemonToCapture) {
-        pokemonToCapture.pokemon.caught = !pokemonToCapture.pokemon.caught;
+        const pokemonToCaptureId = ParseNumberToString(
+          pokemonToCapture.pokemon.id
+        );
+
+        if (state.pokemonsCaptured.includes(pokemonToCaptureId)) {
+          state.pokemonsCaptured = state.pokemonsCaptured.filter(
+            (captured) => captured !== pokemonToCaptureId
+          );
+        } else {
+          state.pokemonsCaptured.push(pokemonToCaptureId);
+        }
+
         localStorage.setItem(
           POKEMONS_CAPTURED,
-          JSON.stringify(pokemonToCapture.pokemon.id)
+          JSON.stringify(state.pokemonsCaptured)
         );
       }
     },
@@ -106,12 +112,27 @@ export const pokemonSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getPokemons.pending, (state) => {
       state.loading = true;
+      state.errors = null;
     });
     builder.addCase(getPokemons.fulfilled, (state, action) => {
       state.pokemons = action.payload;
       state.loading = false;
+      state.errors = null;
     });
     builder.addCase(getPokemons.rejected, (state, action) => {
+      state.loading = false;
+      state.errors = action.payload;
+    });
+    builder.addCase(getSinglePokemon.pending, (state) => {
+      state.loading = true;
+      state.errors = null;
+    });
+    builder.addCase(getSinglePokemon.fulfilled, (state, action) => {
+      state.singlePokemon = action.payload;
+      state.loading = false;
+      state.errors = null;
+    });
+    builder.addCase(getSinglePokemon.rejected, (state, action) => {
       state.loading = false;
       state.errors = action.payload;
     });

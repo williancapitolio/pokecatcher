@@ -30,8 +30,6 @@ export interface Pokemon {
   weight: number;
   abilities: Array<Ability>;
   stats: Array<Stat>;
-  favorite: boolean;
-  caught: boolean;
 }
 
 export interface SpeciesPokemon {

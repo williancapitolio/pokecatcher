@@ -1,0 +1,1 @@
+export { CardPokemon } from "./CardPokemon";
