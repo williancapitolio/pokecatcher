@@ -1,12 +1,16 @@
 import { useHomePokemons } from "../../hooks/use-home-pokemons";
 
 import { CardPokemon } from "../../components/CardPokemon";
+import { ImportImg } from "../../utils/import-img";
 
 export function Home() {
   const { pokemons, loading, handlePaginatePokemons } = useHomePokemons();
 
+  const { Logo } = ImportImg();
+
   return (
     <section>
+      <img src={Logo} alt="Logo PokeCatcher" />
       <h1>PokeCatcher</h1>
 
       {loading && <p>Carregando...</p>}
