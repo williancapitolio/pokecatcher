@@ -1,0 +1,41 @@
+const bug = "#8CB230";
+const dark = "#58575F";
+const dragon = "#0F6AC0";
+const eletric = "#EED535";
+const fairy = "#ED6EC7";
+const fighting = "#D04164";
+const fire = "#FD7D24";
+const flying = "#748FC9";
+const ghost = "#556AAE";
+const grass = "#62B957";
+const ground = "#DD7748";
+const ice = "#61CEC0";
+const normal = "#9DA0AA";
+const poison = "#A552CC";
+const psychic = "#EA5D60";
+const rock = "#BAAB82";
+const steel = "#417D9A";
+const water = "#4A90DA";
+const defaultColor = "#484D50";
+
+export function getBgColorByType(type: string) {
+  if (type === "bug") return bug;
+  else if (type === "dark") return dark;
+  else if (type === "dragon") return dragon;
+  else if (type === "eletric") return eletric;
+  else if (type === "fairy") return fairy;
+  else if (type === "fighting") return fighting;
+  else if (type === "fire") return fire;
+  else if (type === "flying") return flying;
+  else if (type === "ghost") return ghost;
+  else if (type === "grass") return grass;
+  else if (type === "ground") return ground;
+  else if (type === "ice") return ice;
+  else if (type === "normal") return normal;
+  else if (type === "poison") return poison;
+  else if (type === "psychic") return psychic;
+  else if (type === "rock") return rock;
+  else if (type === "steel") return steel;
+  else if (type === "water") return water;
+  else return defaultColor;
+}

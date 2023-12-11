@@ -9,6 +9,11 @@ import { useAppDispatch } from "../../hooks/use-app-redux";
 
 import { FindOnLocalStorage } from "../../utils/find-on-local-storage";
 import { upperCaseFirsLetter } from "../../utils/upper-case-first-letter";
+import { getColorByType } from "../../utils/get-color-by-type";
+import { getSvgType } from "../../utils/get-svg-by-type";
+import { getBgColorByType } from "../../utils/get-bg-color-by-type";
+
+import { IconType } from "../IconType";
 
 import { Pokemon } from "../../interfaces/Pokemon";
 
@@ -21,14 +26,11 @@ type CardPokemonProps = {
 export function CardPokemon({ pokemon }: CardPokemonProps) {
   const dispatch = useAppDispatch();
 
-  const getFirstType = (): string => {
-    const result = pokemon.types.map((type) => type.type.name);
-    return result[0];
-  };
-
   return (
-    <S.Card $pokeType={getFirstType()}>
-      <S.Id>#{pokemon.id}</S.Id>
+    <S.Card
+      $pokeType={getColorByType(pokemon.types.map((type) => type.type.name)[0])}
+    >
+      <S.Id>#{pokemon.id.toString().padStart(3, "0")}</S.Id>
 
       <S.Img
         src={pokemon.sprites.other["official-artwork"].front_default}
@@ -36,13 +38,17 @@ export function CardPokemon({ pokemon }: CardPokemonProps) {
       />
 
       <Link to={"/pokemon/" + pokemon.id}>
-        {/* <S.Name>{pokemon.name}</S.Name> */}
         <S.Name>{upperCaseFirsLetter(pokemon.name)}</S.Name>
       </Link>
 
       <S.Types>
-        {pokemon.types.map((type) => (
-          <S.Type>{upperCaseFirsLetter(type.type.name)}</S.Type>
+        {pokemon.types.map((type, index) => (
+          <IconType
+            color={getBgColorByType(type.type.name)}
+            key={index}
+            icon={getSvgType(type.type.name)}
+            type={upperCaseFirsLetter(type.type.name)}
+          />
         ))}
       </S.Types>
 

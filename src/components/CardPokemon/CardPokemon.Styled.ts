@@ -7,16 +7,14 @@ type CardProps = {
 export const Card = styled.div<CardProps>`
   position: relative;
   height: 7.1875rem;
-  //height: 12.5rem;
-  //width: 100%;
   width: 20.875rem;
-  background-color: red;
+  background-color: ${(props) => props.$pokeType};
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
   padding: 2rem;
-  border-radius: 2rem;
+  border-radius: 0.625rem;
 `;
 
 export const Id = styled.span`
@@ -34,21 +32,16 @@ export const Img = styled.img`
 export const Name = styled.span`
   font-size: ${(props) => props.theme.fonts.sizes.pokemonName.size};
   font-weight: ${(props) => props.theme.fonts.sizes.pokemonName.weight};
+  color: ${(props) => props.theme.colors.text.white};
 `;
 
-export const Types = styled.div``;
-
-export const Type = styled.span`
-  font-size: ${(props) => props.theme.fonts.sizes.pokemonType.size};
-  font-weight: ${(props) => props.theme.fonts.sizes.pokemonType.weight};
-
-  &:nth-child(2) {
-    margin-left: 0.5rem;
-  }
+export const Types = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 export const Actions = styled.div`
   position: absolute;
-  right: 0;
+  right: 0.5rem;
   bottom: 0;
 `;
