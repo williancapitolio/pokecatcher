@@ -8,8 +8,11 @@ import {
 import { useAppDispatch } from "../../hooks/use-app-redux";
 
 import { FindOnLocalStorage } from "../../utils/find-on-local-storage";
+import { upperCaseFirsLetter } from "../../utils/upper-case-first-letter";
 
 import { Pokemon } from "../../interfaces/Pokemon";
+
+import * as S from "./CardPokemon.Styled";
 
 type CardPokemonProps = {
   pokemon: Pokemon;
@@ -18,30 +21,44 @@ type CardPokemonProps = {
 export function CardPokemon({ pokemon }: CardPokemonProps) {
   const dispatch = useAppDispatch();
 
-  return (
-    <div>
-      <span>{pokemon.id}</span>
+  const getFirstType = (): string => {
+    const result = pokemon.types.map((type) => type.type.name);
+    return result[0];
+  };
 
-      <img
+  return (
+    <S.Card $pokeType={getFirstType()}>
+      <S.Id>#{pokemon.id}</S.Id>
+
+      <S.Img
         src={pokemon.sprites.other["official-artwork"].front_default}
         alt={"Imagem de " + pokemon.name}
       />
 
       <Link to={"/pokemon/" + pokemon.id}>
-        <p>{pokemon.name}</p>
+        {/* <S.Name>{pokemon.name}</S.Name> */}
+        <S.Name>{upperCaseFirsLetter(pokemon.name)}</S.Name>
       </Link>
 
-      <button onClick={() => dispatch(toggleFavorite(pokemon.id))}>
-        {FindOnLocalStorage("pokemons-favorites", pokemon.id)
-          ? "Desfavoritar"
-          : "Favoritar"}
-      </button>
-      
-      <button onClick={() => dispatch(toggleCapture(pokemon.id))}>
-        {FindOnLocalStorage("pokemons-captured", pokemon.id)
-          ? "Libertar"
-          : "Capturar"}
-      </button>
-    </div>
+      <S.Types>
+        {pokemon.types.map((type) => (
+          <S.Type>{upperCaseFirsLetter(type.type.name)}</S.Type>
+        ))}
+      </S.Types>
+
+      <S.Actions>
+        <button onClick={() => dispatch(toggleFavorite(pokemon.id))}>
+          {FindOnLocalStorage("pokemons-favorites", pokemon.id)
+            ? "Desfavoritar"
+            : "Favoritar"}
+        </button>
+
+        <button onClick={() => dispatch(toggleCapture(pokemon.id))}>
+          {FindOnLocalStorage("pokemons-captured", pokemon.id)
+            ? "Libertar"
+            : "Capturar"}
+        </button>
+      </S.Actions>
+    </S.Card>
   );
 }
