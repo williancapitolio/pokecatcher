@@ -1,22 +1,22 @@
-import { ImportImg } from "../../utils/import-img";
-
 import { useHomePokemons } from "../../hooks/use-home-pokemons";
+import { useImportImg } from "../../hooks/use-import-img";
 
+import { LoadingAnimation } from "../../components/LoadingAnimation";
 import { CardPokemon } from "../../components/CardPokemon";
+import { ButtonPaginate } from "../../components/ButtonPaginate";
 
 import * as S from "./Home.Styled";
-import { ButtonPaginate } from "../../components/ButtonPaginate";
 
 export function Home() {
   const { pokemons, loading, handlePaginatePokemons } = useHomePokemons();
 
-  const { Logo } = ImportImg();
+  const { Logo } = useImportImg();
 
   return (
     <>
       <S.Logo src={Logo} alt="Logo PokeCatcher" />
 
-      {loading && <p>Carregando...</p>}
+      {loading && <LoadingAnimation />}
 
       <S.Content>
         {pokemons && (

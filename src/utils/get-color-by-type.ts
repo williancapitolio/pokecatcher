@@ -1,7 +1,7 @@
 const bug = "#8BD674";
 const dark = "#6F6E78";
 const dragon = "#7383B9";
-const eletric = "#F2CB55";
+const electric = "#F2CB55";
 const fairy = "#EBA8C3";
 const fighting = "#EB4971";
 const fire = "#FFA756";
@@ -18,11 +18,11 @@ const steel = "#4C91B2";
 const water = "#58ABF6";
 const defaultColor = "#D3D3D3";
 
-export function getColorByType(type: string) {
+export function GetColorByType(type: string) {
   if (type === "bug") return bug;
   else if (type === "dark") return dark;
   else if (type === "dragon") return dragon;
-  else if (type === "eletric") return eletric;
+  else if (type === "electric") return electric;
   else if (type === "fairy") return fairy;
   else if (type === "fighting") return fighting;
   else if (type === "fire") return fire;

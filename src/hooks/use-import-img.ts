@@ -6,6 +6,6 @@ import HeartFill from "../assets/img/heart-fill.png";
 
 import Logo from "../assets/img/logo.png";
 
-export function ImportImg() {
+export function useImportImg() {
   return { Pokeball, PokeballOpen, HeartEmpty, HeartFill, Logo };
 }

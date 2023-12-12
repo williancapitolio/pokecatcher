@@ -2,8 +2,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { BASE_URL, getData, getPokemonsData } from "../../services/Api";
 
-import { GetLocalStorageData } from "../../utils/get-local-storage-data";
-import { ParseNumberToString } from "../../utils/parse-number-to-string";
+import * as Util from "../../utils";
 
 import { Page } from "../../types/page";
 
@@ -29,8 +28,14 @@ const initialState: PokemonState = {
     results: [],
   },
   singlePokemon: null,
-  pokemonsFavorites: GetLocalStorageData<Array<string>>(POKEMONS_FAVORITES, []),
-  pokemonsCaptured: GetLocalStorageData<Array<string>>(POKEMONS_CAPTURED, []),
+  pokemonsFavorites: Util.GetLocalStorageData<Array<string>>(
+    POKEMONS_FAVORITES,
+    []
+  ),
+  pokemonsCaptured: Util.GetLocalStorageData<Array<string>>(
+    POKEMONS_CAPTURED,
+    []
+  ),
   loading: false,
   errors: null,
 };
@@ -67,9 +72,7 @@ export const pokemonSlice = createSlice({
       );
 
       if (pokemonToFavorite) {
-        const pokemonToFavoriteId = ParseNumberToString(
-          pokemonToFavorite.pokemon.id
-        );
+        const pokemonToFavoriteId = String(pokemonToFavorite.pokemon.id);
 
         if (state.pokemonsFavorites.includes(pokemonToFavoriteId)) {
           state.pokemonsFavorites = state.pokemonsFavorites.filter(
@@ -90,7 +93,7 @@ export const pokemonSlice = createSlice({
         (poke) => poke.pokemon.id === action.payload
       );
       if (pokemonToCapture) {
-        const pokemonToCaptureId = ParseNumberToString(
+        const pokemonToCaptureId = String(
           pokemonToCapture.pokemon.id
         );
 

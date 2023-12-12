@@ -25,31 +25,5 @@ export function useGetSinglePokemon() {
 
   const POKEMONS_COUNT = 1017;
 
-  /*   const handlePaginatePokemon = (
-    ev: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    const button = ev.target as HTMLButtonElement;
-
-    const initialButtonValue = button.innerText;
-
-    button.innerText = "Carregando...";
-
-    dispatch(
-      getSinglePokemon(
-        ParseNumberToString(
-          idPokemon + (initialButtonValue === "Próximo" ? 1 : -1)
-        )
-      )
-    ).finally(() => {
-      scrollTo({ top: 0, behavior: "smooth" });
-      button.innerText = initialButtonValue;
-    });
-    console.log(ev);
-
-    
-    scrollTo({ top: 0, behavior: "smooth" });
-    button.innerText = initialButtonValue;
-  }; */
-
   return { Link, singlePokemon, POKEMONS_COUNT };
 }

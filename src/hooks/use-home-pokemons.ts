@@ -25,7 +25,7 @@ export function useHomePokemons() {
 
     const initialButtonValue = button.innerText;
 
-    button.innerText = "Carregando...";
+    button.innerText = "-";
 
     await dispatch(getPokemons(url)).finally(() => {
       scrollTo({ top: 0, behavior: "smooth" });

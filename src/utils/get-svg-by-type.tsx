@@ -56,7 +56,7 @@ const dragon = (
   </svg>
 );
 
-const eletric = (
+const electric = (
   <svg
     width="25"
     height="25"
@@ -408,11 +408,11 @@ const defaultIcon = (
   </svg>
 );
 
-export function getSvgType(type: string): JSX.Element {
+export function GetSvgType(type: string): JSX.Element {
   if (type === "bug") return bug;
   else if (type === "dark") return dark;
   else if (type === "dragon") return dragon;
-  else if (type === "eletric") return eletric;
+  else if (type === "electric") return electric;
   else if (type === "fairy") return fairy;
   else if (type === "fighting") return fighting;
   else if (type === "fire") return fire;
