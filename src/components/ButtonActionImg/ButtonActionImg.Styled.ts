@@ -9,7 +9,7 @@ export const ActionBtn = styled.button<ActionBtnProps>`
   height: 1.75rem;
   border: none;
   background-color: ${(props) => props.$bgColor};
-  border-radius: 0.1875rem;
+  border-radius: 50%;
   display: flex;
   flex: row;
   align-items: center;

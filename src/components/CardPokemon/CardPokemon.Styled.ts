@@ -15,6 +15,7 @@ export const Card = styled.div<CardProps>`
   gap: 0.25rem;
   padding: 2rem;
   border-radius: 0.625rem;
+  box-shadow: 0px 10px 20px 0px ${(props) => props.$pokeType}66;
 `;
 
 export const Id = styled.span`

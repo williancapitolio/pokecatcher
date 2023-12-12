@@ -47,6 +47,7 @@ declare module "styled-components" {
         defaultInput: string;
         pressedInput: string;
         modal: string;
+        defaultBtn: string;
       };
       type: {
         bug: string;

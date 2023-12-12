@@ -44,6 +44,7 @@ export const Light = {
       defaultInput: "#F2F2F2",
       pressedInput: "#E2E2E2",
       modal: "#17171B80",
+      defaultBtn: "#EA5D60",
     },
     type: {
       bug: "#8CB230",
