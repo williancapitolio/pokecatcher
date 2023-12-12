@@ -34,6 +34,10 @@ export const Name = styled.span`
   font-size: ${(props) => props.theme.fonts.sizes.pokemonName.size};
   font-weight: ${(props) => props.theme.fonts.sizes.pokemonName.weight};
   color: ${(props) => props.theme.colors.text.white};
+
+  &:hover {
+    opacity: 0.85;
+  }
 `;
 
 export const Types = styled.div`
