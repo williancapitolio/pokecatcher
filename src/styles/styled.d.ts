@@ -88,6 +88,10 @@ declare module "styled-components" {
         steel: string;
         water: string;
       };
+      logo: {
+        outside: string;
+        inside: string;
+      };
     };
   }
 }

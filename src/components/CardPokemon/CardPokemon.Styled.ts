@@ -42,6 +42,9 @@ export const Types = styled.div`
 
 export const Actions = styled.div`
   position: absolute;
-  right: 0.5rem;
-  bottom: 0;
+  top: -1rem;
+  left: 2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.3125rem;
 `;

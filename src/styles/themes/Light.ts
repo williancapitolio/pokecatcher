@@ -85,5 +85,9 @@ export const Light = {
       steel: "#4C91B2",
       water: "#58ABF6",
     },
+    logo: {
+      outside: "#0070B6",
+      inside: "#FFCC01",
+    },
   },
 };
