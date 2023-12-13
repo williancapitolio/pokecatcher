@@ -13,12 +13,8 @@ import * as Util from "../../utils";
 import * as S from "./Pokemon.Styled";
 
 export function Pokemon() {
-  const {
-    Link,
-    singlePokemon /* , POKEMONS_COUNT */,
-    currentPage,
-    handleChangePage,
-  } = useGetSinglePokemon();
+  const { Link, singlePokemon, currentPage, handleChangePage } =
+    useGetSinglePokemon();
 
   return (
     <>
@@ -86,24 +82,10 @@ export function Pokemon() {
             </S.IndicatorItem>
           </S.Indicators>
           <S.DescriptionContent>
-            {currentPage === 1 && <About />}
-            {currentPage === 2 && <Stats />}
-            {currentPage === 3 && <Evolution />}
+            {currentPage === 1 && <About pokemon={singlePokemon} />}
+            {currentPage === 2 && <Stats pokemon={singlePokemon} />}
+            {currentPage === 3 && <Evolution pokemon={singlePokemon} />}
           </S.DescriptionContent>
-
-          {/* <Link to={"/pokemon/" + (singlePokemon.id - 1)}>
-            <button disabled={singlePokemon.id === 1 ? true : false}>
-              Anterior
-            </button>
-          </Link>
-
-          <Link to={"/pokemon/" + (singlePokemon.id + 1)}>
-            <button
-              disabled={POKEMONS_COUNT === singlePokemon.id ? true : false}
-            >
-              Próximo
-            </button>
-          </Link> */}
         </S.PokemonPage>
       )}
     </>

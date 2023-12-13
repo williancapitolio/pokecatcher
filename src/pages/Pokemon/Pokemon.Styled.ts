@@ -72,7 +72,7 @@ export const Indicators = styled.div`
   }
 
   .incactiveIndicator {
-    color: ${(props) => props.theme.colors.text.primary}77;
+    color: ${(props) => props.theme.colors.text.primary}65;
   }
 `;
 

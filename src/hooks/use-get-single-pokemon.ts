@@ -29,7 +29,5 @@ export function useGetSinglePokemon() {
     singlePokemonData();
   }, [singlePokemonData]);
 
-  const POKEMONS_COUNT = 1017;
-
-  return { Link, singlePokemon, POKEMONS_COUNT, currentPage, handleChangePage };
+  return { Link, singlePokemon, currentPage, handleChangePage };
 }
