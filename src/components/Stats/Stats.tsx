@@ -1,3 +1,7 @@
+import * as Util from "../../utils";
+
+import * as S from "./Stats.Styled";
+
 import { Pokemon } from "../../interfaces/Pokemon";
 
 type StatsProps = {
@@ -6,10 +10,111 @@ type StatsProps = {
 
 export function Stats({ pokemon }: StatsProps) {
   return (
-    <h3>
-      <h2>Stats {pokemon.name}</h2>
-    </h3>
+    <S.StatsComponent>
+      <S.BaseStats
+        $fontColor={Util.GetBgColorByType(
+          pokemon.types.map(({ type }) => type.name)[0]
+        )}
+      >
+        Base Stats
+      </S.BaseStats>
+
+      <S.StatsTable>
+        <S.StatsTHead>
+          <S.StatsTr>
+            <S.StatsTh>HP</S.StatsTh>
+            <S.StatsTh>Attack</S.StatsTh>
+            <S.StatsTh>Defense</S.StatsTh>
+            <S.StatsTh>Sp. Atk</S.StatsTh>
+            <S.StatsTh>Sp. Def</S.StatsTh>
+            <S.StatsTh>Speed</S.StatsTh>
+            <S.StatsTh>Total</S.StatsTh>
+          </S.StatsTr>
+        </S.StatsTHead>
+
+        <S.StatsTBody>
+          <S.StatsTr>
+            {pokemon.stats.map((stat, index) => (
+              <S.StatsTd key={index}>{stat.base_stat}</S.StatsTd>
+            ))}
+            <S.StatsTd className="tdTotal">
+              {pokemon.stats
+                .map((stat) => stat.base_stat)
+                .reduce((acc, curr) => acc + curr, 0)}
+            </S.StatsTd>
+          </S.StatsTr>
+          {/* progress bar */}
+          <S.StatsTr>
+            {pokemon.stats.map((stat, index) => (
+              <S.StatsTd key={index}>
+                <S.StatsProgress
+                  value={stat.base_stat}
+                  max="255"
+                  $progressColor={Util.GetBgColorByType(
+                    pokemon.types.map(({ type }) => type.name)[0]
+                  )}
+                >
+                  {stat.base_stat}%
+                </S.StatsProgress>
+              </S.StatsTd>
+            ))}
+            <S.StatsTd></S.StatsTd>
+          </S.StatsTr>
+
+          {/* stats min */}
+          <S.StatsTr>
+            <S.StatsTd>
+              {Util.GetHpStat(
+                pokemon.stats.map((stat) => stat.base_stat)[0],
+                0,
+                0,
+                100
+              )}
+            </S.StatsTd>
+
+            {pokemon.stats
+              .map((stat) => stat.base_stat)
+              .slice(1)
+              .map((item, index) => (
+                <S.StatsTd key={index}>
+                  {Util.GetOtherStats(item, 0, 0, 100, 0.9)}
+                </S.StatsTd>
+              ))}
+
+            <S.StatsTd className="tdMinMax">Min</S.StatsTd>
+          </S.StatsTr>
+
+          {/* stats max */}
+          <S.StatsTr>
+            <S.StatsTd>
+              {Util.GetHpStat(
+                pokemon.stats.map((stat) => stat.base_stat)[0],
+                31,
+                252,
+                100
+              )}
+            </S.StatsTd>
+
+            {pokemon.stats
+              .map((stat) => stat.base_stat)
+              .slice(1)
+              .map((item, index) => (
+                <S.StatsTd key={index}>
+                  {Util.GetOtherStats(item, 31, 252, 100, 1.1)}
+                </S.StatsTd>
+              ))}
+
+            <S.StatsTd className="tdMinMax">Max</S.StatsTd>
+          </S.StatsTr>
+        </S.StatsTBody>
+      </S.StatsTable>
+
+      <S.StatsDescription>
+        Maximum Base Stat is 255. The ranges shown on the right are for a level
+        100 Pokémon. Maximum values are based on a beneficial nature (10%
+        increase), 252 EVs, 31 IVs. Minimum values are based on a hindering
+        nature (10% decrease), 0 EVs, 0 IVs.
+      </S.StatsDescription>
+    </S.StatsComponent>
   );
 }
-
-//The ranges shown on the right are for a level 100 Pokémon. Maximum values are based on a beneficial nature (10% increase (10% decrease), 0 EVs, 0 IVs.
