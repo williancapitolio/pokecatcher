@@ -35,6 +35,11 @@ export const StatsTBody = styled.tbody`
   width: 100%;
   justify-content: space-between;
 
+  .tdStat {
+    display: flex;
+    align-items: end;
+  }
+
   .tdTotal {
     font-weight: 700;
   }
@@ -43,16 +48,32 @@ export const StatsTBody = styled.tbody`
     color: ${(props) => props.theme.colors.text.black};
     font-size: 0.75rem;
     font-weight: 500;
+    display: flex;
+    align-items: end;
+  }
+
+  .tdProgress {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 `;
 
 export const StatsTr = styled.tr`
   display: flex;
   flex-direction: column;
+
+  th,
+  td {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+  }
 `;
 
 export const StatsTh = styled.th`
-  height: 1.5rem;
+  height: 2rem;
   padding: 0.25rem;
   font-size: 0.75rem;
   font-weight: 500;
@@ -60,7 +81,7 @@ export const StatsTh = styled.th`
 `;
 
 export const StatsTd = styled.td`
-  height: 1.5rem;
+  height: 2rem;
   padding: 0.25rem;
   font-size: 1rem;
   font-weight: 400;
@@ -74,6 +95,19 @@ type StatsProgressProps = {
 export const StatsProgress = styled.progress<StatsProgressProps>`
   height: 0.25rem;
   border-radius: 0.125rem;
+  inline-size: 10rem;
+
+  @media (max-width: 27.5rem) {
+    inline-size: 6rem;
+  }
+
+  @media (max-width: 23.75rem) {
+    inline-size: 3rem;
+  }
+
+  @media (max-width: 20rem) {
+    inline-size: 0.55rem;
+  }
 
   &::-webkit-progress-bar {
     background-color: transparent;

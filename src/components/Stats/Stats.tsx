@@ -35,18 +35,19 @@ export function Stats({ pokemon }: StatsProps) {
         <S.StatsTBody>
           <S.StatsTr>
             {pokemon.stats.map((stat, index) => (
-              <S.StatsTd key={index}>{stat.base_stat}</S.StatsTd>
+              <S.StatsTd key={index} className="tdStat">
+                {stat.base_stat}
+              </S.StatsTd>
             ))}
-            <S.StatsTd className="tdTotal">
+            <S.StatsTd className="tdTotal tdStat">
               {pokemon.stats
                 .map((stat) => stat.base_stat)
                 .reduce((acc, curr) => acc + curr, 0)}
             </S.StatsTd>
           </S.StatsTr>
-          {/* progress bar */}
           <S.StatsTr>
             {pokemon.stats.map((stat, index) => (
-              <S.StatsTd key={index}>
+              <S.StatsTd key={index} className="tdProgress">
                 <S.StatsProgress
                   value={stat.base_stat}
                   max="255"
@@ -61,9 +62,8 @@ export function Stats({ pokemon }: StatsProps) {
             <S.StatsTd></S.StatsTd>
           </S.StatsTr>
 
-          {/* stats min */}
           <S.StatsTr>
-            <S.StatsTd>
+            <S.StatsTd className="tdStat">
               {Util.GetHpStat(
                 pokemon.stats.map((stat) => stat.base_stat)[0],
                 0,
@@ -76,7 +76,7 @@ export function Stats({ pokemon }: StatsProps) {
               .map((stat) => stat.base_stat)
               .slice(1)
               .map((item, index) => (
-                <S.StatsTd key={index}>
+                <S.StatsTd key={index} className="tdStat">
                   {Util.GetOtherStats(item, 0, 0, 100, 0.9)}
                 </S.StatsTd>
               ))}
@@ -84,9 +84,8 @@ export function Stats({ pokemon }: StatsProps) {
             <S.StatsTd className="tdMinMax">Min</S.StatsTd>
           </S.StatsTr>
 
-          {/* stats max */}
           <S.StatsTr>
-            <S.StatsTd>
+            <S.StatsTd className="tdStat">
               {Util.GetHpStat(
                 pokemon.stats.map((stat) => stat.base_stat)[0],
                 31,
@@ -99,7 +98,7 @@ export function Stats({ pokemon }: StatsProps) {
               .map((stat) => stat.base_stat)
               .slice(1)
               .map((item, index) => (
-                <S.StatsTd key={index}>
+                <S.StatsTd key={index} className="tdStat">
                   {Util.GetOtherStats(item, 31, 252, 100, 1.1)}
                 </S.StatsTd>
               ))}

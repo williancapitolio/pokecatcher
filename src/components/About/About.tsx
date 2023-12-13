@@ -6,8 +6,8 @@ type AboutProps = {
 
 export function About({ pokemon }: AboutProps) {
   return (
-    <h3>
-      <h2>About {pokemon.name}</h2>
-    </h3>
+    <div>
+      <h3>About {pokemon.name}</h3>
+    </div>
   );
 }

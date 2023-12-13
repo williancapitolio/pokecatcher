@@ -6,8 +6,8 @@ type EvolutionProps = {
 
 export function Evolution({ pokemon }: EvolutionProps) {
   return (
-    <h3>
-      <h2>Evolution {pokemon.name}</h2>
-    </h3>
+    <div>
+      <h3>Evolution {pokemon.name}</h3>
+    </div>
   );
 }
