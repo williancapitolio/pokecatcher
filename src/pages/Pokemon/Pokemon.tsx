@@ -56,30 +56,19 @@ export function Pokemon() {
             </S.PokemonData>
           </S.MainContent>
           <S.Indicators>
-            <S.IndicatorItem
-              onClick={() => handleChangePage(1)}
-              className={
-                currentPage === 1 ? "activeIndicator" : "incactiveIndicator"
-              }
-            >
-              About
-            </S.IndicatorItem>
-            <S.IndicatorItem
-              onClick={() => handleChangePage(2)}
-              className={
-                currentPage === 2 ? "activeIndicator" : "incactiveIndicator"
-              }
-            >
-              Stats
-            </S.IndicatorItem>
-            <S.IndicatorItem
-              onClick={() => handleChangePage(3)}
-              className={
-                currentPage === 3 ? "activeIndicator" : "incactiveIndicator"
-              }
-            >
-              Evolution
-            </S.IndicatorItem>
+            {["About", "Stats", "Evolution"].map((item, index) => (
+              <S.IndicatorItem
+                key={index + 1}
+                onClick={() => handleChangePage(index + 1)}
+                className={
+                  currentPage === index + 1
+                    ? "activeIndicator"
+                    : "incactiveIndicator"
+                }
+              >
+                {item}
+              </S.IndicatorItem>
+            ))}
           </S.Indicators>
           <S.DescriptionContent>
             {currentPage === 1 && <About pokemon={singlePokemon} />}
