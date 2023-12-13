@@ -18,11 +18,6 @@ export const Card = styled.div<CardProps>`
   box-shadow: 0px 10px 20px 0px ${(props) => props.$pokeType}66;
 `;
 
-export const Id = styled.span`
-  font-size: ${(props) => props.theme.fonts.sizes.pokemonNumber.size};
-  font-weight: ${(props) => props.theme.fonts.sizes.pokemonNumber.weight};
-`;
-
 export const Img = styled.img`
   width: 8.125rem;
   position: absolute;

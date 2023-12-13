@@ -1,0 +1,1 @@
+export { TextIdPokemon } from "./TextIdPokemon";

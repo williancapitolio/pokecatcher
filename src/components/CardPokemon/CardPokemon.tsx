@@ -16,6 +16,7 @@ import { ButtonActionImg } from "../ButtonActionImg";
 import * as S from "./CardPokemon.Styled";
 
 import { Pokemon } from "../../interfaces/Pokemon";
+import { TextIdPokemon } from "../TextIdPokemon";
 
 type CardPokemonProps = {
   pokemon: Pokemon;
@@ -28,9 +29,11 @@ export function CardPokemon({ pokemon }: CardPokemonProps) {
 
   return (
     <S.Card
-      $pokeType={Util.GetColorByType(pokemon.types.map((type) => type.type.name)[0])}
+      $pokeType={Util.GetColorByType(
+        pokemon.types.map((type) => type.type.name)[0]
+      )}
     >
-      <S.Id>#{pokemon.id.toString().padStart(3, "0")}</S.Id>
+      <TextIdPokemon idPokemon={pokemon.id} />
 
       <S.Img
         src={pokemon.sprites.other["official-artwork"].front_default}

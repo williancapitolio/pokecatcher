@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { Link, useParams } from "react-router-dom";
 
@@ -13,6 +13,12 @@ export function useGetSinglePokemon() {
 
   const dispatch = useAppDispatch();
 
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  function handleChangePage(page: number) {
+    setCurrentPage(page);
+  }
+
   if (!id) throw new Error("");
 
   const singlePokemonData = useCallback(async () => {
@@ -25,5 +31,5 @@ export function useGetSinglePokemon() {
 
   const POKEMONS_COUNT = 1017;
 
-  return { Link, singlePokemon, POKEMONS_COUNT };
+  return { Link, singlePokemon, POKEMONS_COUNT, currentPage, handleChangePage };
 }

@@ -1,24 +1,97 @@
 import { useGetSinglePokemon } from "../../hooks/use-get-single-pokemon";
 
+import { IconType } from "../../components/IconType";
+import { TextIdPokemon } from "../../components/TextIdPokemon";
+import { About } from "../../components/About";
+import { Stats } from "../../components/Stats";
+import { Evolution } from "../../components/Evolution";
+
+import { BsArrowLeft } from "react-icons/bs";
+
+import * as Util from "../../utils";
+
+import * as S from "./Pokemon.Styled";
+
 export function Pokemon() {
-  const { Link, singlePokemon, POKEMONS_COUNT } = useGetSinglePokemon();
+  const {
+    Link,
+    singlePokemon /* , POKEMONS_COUNT */,
+    currentPage,
+    handleChangePage,
+  } = useGetSinglePokemon();
 
   return (
     <>
       {singlePokemon && (
-        <>
-          <Link to={"/"}>Voltar</Link>
+        <S.PokemonPage
+          $pokeType={Util.GetColorByType(
+            singlePokemon.types.map(({ type }) => type.name)[0]
+          )}
+        >
+          <Link to={"/"}>
+            <BsArrowLeft className={"arrowBack"} />
+          </Link>
 
-          <span>{singlePokemon.id}</span>
+          <S.MainContent>
+            <S.PokemonImg
+              src={
+                singlePokemon.sprites.other["official-artwork"].front_default
+              }
+              alt={"Imagem de " + singlePokemon.name}
+            />
 
-          <h3>{singlePokemon.name}</h3>
+            <S.PokemonData>
+              <TextIdPokemon idPokemon={singlePokemon.id} />
 
-          <img
-            src={singlePokemon.sprites.other["official-artwork"].front_default}
-            alt={"Imagem de " + singlePokemon.name}
-          />
+              <S.PokemonName>
+                {Util.UpperCaseFirsLetter(singlePokemon.name)}
+              </S.PokemonName>
 
-          <Link to={"/pokemon/" + (singlePokemon.id - 1)}>
+              <S.PokemonTypes>
+                {singlePokemon.types.map(({ type }, index) => (
+                  <IconType
+                    key={index}
+                    color={Util.GetBgColorByType(type.name)}
+                    icon={Util.GetSvgType(type.name)}
+                    type={Util.UpperCaseFirsLetter(type.name)}
+                  />
+                ))}
+              </S.PokemonTypes>
+            </S.PokemonData>
+          </S.MainContent>
+          <S.Indicators>
+            <S.IndicatorItem
+              onClick={() => handleChangePage(1)}
+              className={
+                currentPage === 1 ? "activeIndicator" : "incactiveIndicator"
+              }
+            >
+              Sobre
+            </S.IndicatorItem>
+            <S.IndicatorItem
+              onClick={() => handleChangePage(2)}
+              className={
+                currentPage === 2 ? "activeIndicator" : "incactiveIndicator"
+              }
+            >
+              Status
+            </S.IndicatorItem>
+            <S.IndicatorItem
+              onClick={() => handleChangePage(3)}
+              className={
+                currentPage === 3 ? "activeIndicator" : "incactiveIndicator"
+              }
+            >
+              Evolução
+            </S.IndicatorItem>
+          </S.Indicators>
+          <S.DescriptionContent>
+            {currentPage === 1 && <About />}
+            {currentPage === 2 && <Stats />}
+            {currentPage === 3 && <Evolution />}
+          </S.DescriptionContent>
+
+          {/* <Link to={"/pokemon/" + (singlePokemon.id - 1)}>
             <button disabled={singlePokemon.id === 1 ? true : false}>
               Anterior
             </button>
@@ -30,8 +103,8 @@ export function Pokemon() {
             >
               Próximo
             </button>
-          </Link>
-        </>
+          </Link> */}
+        </S.PokemonPage>
       )}
     </>
   );
