@@ -62,7 +62,7 @@ export function Pokemon() {
                 currentPage === 1 ? "activeIndicator" : "incactiveIndicator"
               }
             >
-              Sobre
+              About
             </S.IndicatorItem>
             <S.IndicatorItem
               onClick={() => handleChangePage(2)}
@@ -70,7 +70,7 @@ export function Pokemon() {
                 currentPage === 2 ? "activeIndicator" : "incactiveIndicator"
               }
             >
-              Status
+              Stats
             </S.IndicatorItem>
             <S.IndicatorItem
               onClick={() => handleChangePage(3)}
@@ -78,7 +78,7 @@ export function Pokemon() {
                 currentPage === 3 ? "activeIndicator" : "incactiveIndicator"
               }
             >
-              Evolução
+              Evolution
             </S.IndicatorItem>
           </S.Indicators>
           <S.DescriptionContent>

@@ -11,3 +11,5 @@ export function Stats({ pokemon }: StatsProps) {
     </h3>
   );
 }
+
+//The ranges shown on the right are for a level 100 Pokémon. Maximum values are based on a beneficial nature (10% increase (10% decrease), 0 EVs, 0 IVs.
