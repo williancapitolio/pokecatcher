@@ -6,7 +6,11 @@ import * as Util from "../../utils";
 
 import { Page } from "../../types/page";
 
-import { Pokemon, PokemonResults } from "./../../interfaces/Pokemon";
+import {
+  Pokemon,
+  PokemonResults,
+  SpeciesPokemon,
+} from "./../../interfaces/Pokemon";
 
 interface PokemonState {
   pokemons: Page<PokemonResults>;
@@ -55,7 +59,14 @@ export const getSinglePokemon = createAsyncThunk<Pokemon, string>(
   "pokemons/getSinglePokemon",
   async (id, thunkAPI) => {
     try {
-      return await getData<Pokemon>(BASE_URL + "/pokemon/" + id);
+      const pokemonData = await getData<Pokemon>(BASE_URL + "/pokemon/" + id);
+
+      const speciesData = await getData<SpeciesPokemon>(
+        pokemonData.species.url
+      );
+      pokemonData.species.specie = speciesData;
+      
+      return pokemonData;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -93,9 +104,7 @@ export const pokemonSlice = createSlice({
         (poke) => poke.pokemon.id === action.payload
       );
       if (pokemonToCapture) {
-        const pokemonToCaptureId = String(
-          pokemonToCapture.pokemon.id
-        );
+        const pokemonToCaptureId = String(pokemonToCapture.pokemon.id);
 
         if (state.pokemonsCaptured.includes(pokemonToCaptureId)) {
           state.pokemonsCaptured = state.pokemonsCaptured.filter(

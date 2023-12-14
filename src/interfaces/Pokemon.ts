@@ -33,15 +33,37 @@ export interface Pokemon {
 }
 
 export interface SpeciesPokemon {
-  shape: {
-    name: string;
-  };
   gender_rate: number; //The chance of this Pokémon being female, in eighths; or -1 for genderless.
   egg_groups: Array<EggGroup>;
   evolution_chain: {
     url: string;
     evolution?: EvolutionChain;
   };
+  flavor_text_entries: Array<flavorTextEntries>;
+  genera: Array<Genera>;
+}
+
+export interface Genera {
+  genus: string
+  language: Language
+}
+
+export interface Language {
+  name: string
+}
+
+export interface flavorTextEntries {
+  flavor_text: string;
+  language: Language;
+  version: Version;
+}
+
+export interface Language {
+  name: string;
+}
+
+export interface Version {
+  name: string;
 }
 
 export interface EvolutionChain {

@@ -6,16 +6,6 @@ export const StatsComponent = styled.div`
   gap: 1.5rem;
 `;
 
-type BaseStatsProps = {
-  $fontColor: string | ((props: ExecutionContext) => string);
-};
-
-export const BaseStats = styled.h3<BaseStatsProps>`
-  font-size: 1rem;
-  font-weight: 700;
-  color: ${(props) => props.$fontColor};
-`;
-
 export const StatsTable = styled.table`
   display: flex;
   flex-direction: row;

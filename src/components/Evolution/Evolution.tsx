@@ -1,10 +1,12 @@
+import { useGetSinglePokemon } from "../../hooks/use-get-single-pokemon";
+
 import { Pokemon } from "../../interfaces/Pokemon";
 
-type EvolutionProps = {
-  pokemon: Pokemon;
-};
+export function Evolution() {
+  const { singlePokemon } = useGetSinglePokemon();
 
-export function Evolution({ pokemon }: EvolutionProps) {
+  const pokemon = singlePokemon as Pokemon;
+
   return (
     <div>
       <h3>Evolution {pokemon.name}</h3>

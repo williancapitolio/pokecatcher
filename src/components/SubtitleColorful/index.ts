@@ -1,0 +1,1 @@
+export { SubtitleColorful } from "./SubtitleColorful";

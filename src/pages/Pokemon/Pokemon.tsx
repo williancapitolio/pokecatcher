@@ -71,9 +71,9 @@ export function Pokemon() {
             ))}
           </S.Indicators>
           <S.DescriptionContent>
-            {currentPage === 1 && <About pokemon={singlePokemon} />}
-            {currentPage === 2 && <Stats pokemon={singlePokemon} />}
-            {currentPage === 3 && <Evolution pokemon={singlePokemon} />}
+            {currentPage === 1 && <About />}
+            {currentPage === 2 && <Stats />}
+            {currentPage === 3 && <Evolution />}
           </S.DescriptionContent>
         </S.PokemonPage>
       )}

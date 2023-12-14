@@ -1,34 +1,36 @@
+import { useGetSinglePokemon } from "../../hooks/use-get-single-pokemon";
+
+import { SubtitleColorful } from "../SubtitleColorful";
+
 import * as Util from "../../utils";
 
 import * as S from "./Stats.Styled";
 
 import { Pokemon } from "../../interfaces/Pokemon";
 
-type StatsProps = {
-  pokemon: Pokemon;
-};
+export function Stats() {
+  const { singlePokemon } = useGetSinglePokemon();
 
-export function Stats({ pokemon }: StatsProps) {
+  const pokemon = singlePokemon as Pokemon;
+
   return (
     <S.StatsComponent>
-      <S.BaseStats
-        $fontColor={Util.GetBgColorByType(
-          pokemon.types.map(({ type }) => type.name)[0]
-        )}
-      >
-        Base Stats
-      </S.BaseStats>
+      <SubtitleColorful subtitle="Base Stats" />
 
       <S.StatsTable>
         <S.StatsTHead>
           <S.StatsTr>
-            <S.StatsTh>HP</S.StatsTh>
-            <S.StatsTh>Attack</S.StatsTh>
-            <S.StatsTh>Defense</S.StatsTh>
-            <S.StatsTh>Sp. Atk</S.StatsTh>
-            <S.StatsTh>Sp. Def</S.StatsTh>
-            <S.StatsTh>Speed</S.StatsTh>
-            <S.StatsTh>Total</S.StatsTh>
+            {[
+              "HP",
+              "Attack",
+              "Defense",
+              "Sp. Atk",
+              "Sp. Def",
+              "Speed",
+              "Total",
+            ].map((item, index) => (
+              <S.StatsTh key={index}>{item}</S.StatsTh>
+            ))}
           </S.StatsTr>
         </S.StatsTHead>
 
