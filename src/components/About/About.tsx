@@ -51,11 +51,11 @@ export function About() {
                 ]
               }
             </S.AboutTd>
-            <S.AboutTd>{pokemon.height}</S.AboutTd>
-            <S.AboutTd>{pokemon.weight}</S.AboutTd>
+            <S.AboutTd>{pokemon.height / 10} m</S.AboutTd>
+            <S.AboutTd>{pokemon.weight / 10} kg</S.AboutTd>
             <S.AboutTd className="abilitiesTd">
               {pokemon.abilities.map(({ ability }, index) => (
-                <span>
+                <span key={index}>
                   {index + 1}. {Util.UpperCaseFirsLetter(ability.name)}
                 </span>
               ))}
@@ -65,7 +65,44 @@ export function About() {
       </S.AboutTable>
 
       <SubtitleColorful subtitle="Breeding" />
-      <table></table>
+      <S.AboutTable>
+        <S.AboutTHead>
+          <S.AboutTr>
+            {["Gender", "Egg Groups"].map((item, index) => (
+              <S.AboutTh key={index}>{item}</S.AboutTh>
+            ))}
+          </S.AboutTr>
+        </S.AboutTHead>
+
+        <S.AboutTBody>
+          <S.AboutTr>
+            <S.AboutTd>
+              {pokemon.species.specie?.gender_rate === -1
+                ? "Genderless"
+                : Util.GetGenderRate(
+                    pokemon.species.specie?.gender_rate as number
+                  ).map((item, index) => (
+                    <span
+                      key={index}
+                      style={{ color: !index ? "blue" : "deeppink", fontWeight: 500}}
+                    >
+                      {item}
+                    </span>
+                  ))}
+            </S.AboutTd>
+            <S.AboutTd>
+              {pokemon.species.specie?.egg_groups
+                .reduce(
+                  (acc, curr) =>
+                    `${acc} ${Util.UpperCaseFirsLetter(curr.name)},`,
+                  ""
+                )
+                .toString()
+                .slice(0, -1)}
+            </S.AboutTd>
+          </S.AboutTr>
+        </S.AboutTBody>
+      </S.AboutTable>
     </S.AboutComponent>
   );
 }

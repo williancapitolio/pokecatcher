@@ -59,9 +59,11 @@ export const AboutTh = styled.th`
   font-size: 0.75rem;
   font-weight: 500;
   text-align: start;
+  width: 5rem;
 `;
 
 export const AboutTd = styled.td`
+  width: 100%;
   height: 2.5rem;
   padding: 0.25rem;
   font-size: 1rem;

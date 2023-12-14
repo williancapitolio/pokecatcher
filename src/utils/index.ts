@@ -1,6 +1,7 @@
 import { FindOnLocalStorage } from "./find-on-local-storage";
 import { GetBgColorByType } from "./get-bg-color-by-type";
 import { GetColorByType } from "./get-color-by-type";
+import { GetGenderRate } from "./get-gender-rate";
 import { GetHpStat } from "./get-hp-stat";
 import { GetLocalStorageData } from "./get-local-storage-data";
 import { GetOtherStats } from "./get-other-stats";
@@ -11,6 +12,7 @@ export {
   FindOnLocalStorage,
   GetBgColorByType,
   GetColorByType,
+  GetGenderRate,
   GetHpStat,
   GetLocalStorageData,
   GetOtherStats,
