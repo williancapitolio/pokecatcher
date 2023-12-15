@@ -7,6 +7,7 @@ import * as Util from "../../utils";
 import { Page } from "../../types/page";
 
 import {
+  EvolutionChain,
   Pokemon,
   PokemonResults,
   SpeciesPokemon,
@@ -65,7 +66,12 @@ export const getSinglePokemon = createAsyncThunk<Pokemon, string>(
         pokemonData.species.url
       );
       pokemonData.species.specie = speciesData;
-      
+
+      const evolutionData = await getData<EvolutionChain>(
+        speciesData.evolution_chain.url
+      );
+      pokemonData.species.specie.evolution_chain.evolution = evolutionData;
+
       return pokemonData;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

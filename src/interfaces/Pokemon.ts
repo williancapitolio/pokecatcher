@@ -44,12 +44,12 @@ export interface SpeciesPokemon {
 }
 
 export interface Genera {
-  genus: string
-  language: Language
+  genus: string;
+  language: Language;
 }
 
 export interface Language {
-  name: string
+  name: string;
 }
 
 export interface flavorTextEntries {
@@ -64,15 +64,6 @@ export interface Language {
 
 export interface Version {
   name: string;
-}
-
-export interface EvolutionChain {
-  chain: {
-    evolves_to: Array<EnvolveTo>;
-    species: {
-      name: string;
-    };
-  };
 }
 
 interface Type {
@@ -98,13 +89,118 @@ interface Stat {
   };
 }
 
+/* export interface EvolutionChain {
+  chain: {
+    evolves_to: Array<EnvolveTo>;
+    species: {
+      name: string;
+    };
+  };
+}
+
 interface EnvolveTo {
   evolves_to: {
     species: {
       name: string;
     };
-  } | null;
+  };
   species: {
     name: string;
   };
+} */
+
+//
+
+export interface EvolutionChain {
+  baby_trigger_item: unknown
+  chain: Chain
+  id: number
+}
+
+export interface Chain {
+  evolution_details: unknown[]
+  evolves_to: EvolvesTo[]
+  is_baby: boolean
+  species: Species3
+}
+
+export interface EvolvesTo {
+  evolution_details: EvolutionDetail[]
+  evolves_to: EvolvesTo2[]
+  is_baby: boolean
+  species: Species2
+}
+
+export interface EvolutionDetail {
+  gender: unknown
+  held_item: unknown
+  item: unknown
+  known_move: unknown
+  known_move_type: unknown
+  location: unknown
+  min_affection: unknown
+  min_beauty: unknown
+  min_happiness: unknown
+  min_level: number
+  needs_overworld_rain: boolean
+  party_species: unknown
+  party_type: unknown
+  relative_physical_stats: unknown
+  time_of_day: string
+  trade_species: unknown
+  trigger: Trigger
+  turn_upside_down: boolean
+}
+
+export interface Trigger {
+  name: string
+  url: string
+}
+
+export interface EvolvesTo2 {
+  evolution_details: EvolutionDetail2[]
+  evolves_to: unknown[]
+  is_baby: boolean
+  species: Species
+}
+
+export interface EvolutionDetail2 {
+  gender: unknown
+  held_item: unknown
+  item: unknown
+  known_move: unknown
+  known_move_type: unknown
+  location: unknown
+  min_affection: unknown
+  min_beauty: unknown
+  min_happiness: unknown
+  min_level: number
+  needs_overworld_rain: boolean
+  party_species: unknown
+  party_type: unknown
+  relative_physical_stats: unknown
+  time_of_day: string
+  trade_species: unknown
+  trigger: Trigger2
+  turn_upside_down: boolean
+}
+
+export interface Trigger2 {
+  name: string
+  url: string
+}
+
+export interface Species {
+  name: string
+  url: string
+}
+
+export interface Species2 {
+  name: string
+  url: string
+}
+
+export interface Species3 {
+  name: string
+  url: string
 }

@@ -19,10 +19,8 @@ export function useGetSinglePokemon() {
     setCurrentPage(page);
   }
 
-  if (!id) throw new Error("");
-
   const singlePokemonData = useCallback(async () => {
-    await dispatch(getSinglePokemon(id));
+    await dispatch(getSinglePokemon(id as string));
   }, [dispatch, id]);
 
   useEffect(() => {
