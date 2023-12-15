@@ -5,7 +5,7 @@ export const Chart = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
 `;
 
 export const InfoEvolution = styled.div`
@@ -20,12 +20,17 @@ export const ImgContent = styled.div`
   background-color: #f3f3f3;
   border-radius: 50%;
   padding: 0.75rem;
-  margin-bottom: .25rem;
+  margin-bottom: 0.25rem;
 `;
 
 export const Img = styled.img`
   width: 4.6875rem;
   height: 4.6875rem;
+
+  @media (max-width: 20.625rem) {
+    width: 3.25rem;
+  height: 3.25rem;
+  }
 `;
 
 export const PokemonName = styled.h4`

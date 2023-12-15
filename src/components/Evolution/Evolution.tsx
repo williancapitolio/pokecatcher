@@ -1,28 +1,25 @@
-import { useGetSinglePokemon } from "../../hooks/use-get-single-pokemon";
-
-import * as Util from "../../utils";
+import { usePokemonEvolutionChart } from "../../hooks/use-pokemon-evolution-chart";
 
 import { SubtitleColorful } from "../SubtitleColorful";
 import { EvolutionChart } from "../EvolutionChart";
 
-import { Pokemon } from "../../interfaces/Pokemon";
+import * as Util from "../../utils";
 
 import * as S from "./Evolution.Styled";
 
 export function Evolution() {
-  const { singlePokemon } = useGetSinglePokemon();
-
-  const pokemon = singlePokemon as Pokemon;
-
-  const evolutionDetails =
-    pokemon.species.specie?.evolution_chain.evolution?.chain;
+  const {
+    evolutionDetails,
+    pokemonDoNotEnvolve,
+    pokemonHaveMoreThanOneSecondForm,
+  } = usePokemonEvolutionChart();
 
   return (
     <S.EvolutionComponent>
       <SubtitleColorful subtitle="Evolution Chart" />
 
       {/* Does not evolve. ex: Kangaskhan , Heracross */}
-      {!evolutionDetails?.evolves_to.length && (
+      {pokemonDoNotEnvolve && (
         <p style={{ textAlign: "center", fontWeight: 700 }}>
           {Util.UpperCaseFirsLetter(evolutionDetails?.species.name as string)}{" "}
           does not evolve!
@@ -30,12 +27,22 @@ export function Evolution() {
       )}
 
       {/* Have more than one second form. ex: Eevee, Tyrogue */}
-      {(evolutionDetails?.evolves_to.length as number) > 1 &&
+      {pokemonHaveMoreThanOneSecondForm &&
         evolutionDetails?.evolves_to.map((plusSecondForm, index) => (
-          <p key={index}>
-            {evolutionDetails?.species.name as string} evolui para{" "}
-            {plusSecondForm.species.name}
-          </p>
+          <>
+            <p key={index}>
+              {evolutionDetails?.species.name as string} to{" "}
+              {plusSecondForm.species.name}
+            </p>
+
+            {/* Have more than one second and third form. ex: Silcoon and Cascoon */}
+            {plusSecondForm.evolves_to &&
+              plusSecondForm.evolves_to.map((plusThirdForm, index) => (
+                <p key={index}>
+                  {plusSecondForm.species.name} to {plusThirdForm.species.name}
+                </p>
+              ))}
+          </>
         ))}
 
       {/* Have just one second form. ex: Bulbasaur, Growlithe */}
@@ -43,29 +50,27 @@ export function Evolution() {
         evolutionDetails?.evolves_to.map((secondForm, index) => (
           <>
             <p key={index}>
-              {evolutionDetails?.species.name as string} evolui para{" "}
+              {evolutionDetails?.species.name as string} to{" "}
               {secondForm.species.name}
             </p>
 
-            {/* Have just one final form. ex: Ivysaur, Machoke*/}
-            {secondForm.evolves_to.length === 1 && (
+            {/* Have more than one third form. ex: Gloom, Poliwhirl */}
+            {secondForm.evolves_to.length > 1 && (
               <>
-                {secondForm.evolves_to.map((thirdForm) => (
-                  <p>
-                    {secondForm.species.name} evolui para{" "}
-                    {thirdForm.species.name}
+                {secondForm.evolves_to.map((plusThirdForm, index) => (
+                  <p key={index}>
+                    {secondForm.species.name} to {plusThirdForm.species.name}
                   </p>
                 ))}
               </>
             )}
 
-            {/* Have more than one final form. ex: Gloom, Poliwhirl */}
-            {secondForm.evolves_to.length > 1 && (
+            {/* Have just one third form. ex: Ivysaur, Machoke*/}
+            {secondForm.evolves_to.length === 1 && (
               <>
-                {secondForm.evolves_to.map((plusThirdForm, index) => (
-                  <p key={index}>
-                    {secondForm.species.name} evolui para{" "}
-                    {plusThirdForm.species.name}
+                {secondForm.evolves_to.map((thirdForm) => (
+                  <p>
+                    {secondForm.species.name} to {thirdForm.species.name}
                   </p>
                 ))}
               </>
