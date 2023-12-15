@@ -3,11 +3,11 @@ import { useGetSinglePokemon } from "../../hooks/use-get-single-pokemon";
 import * as Util from "../../utils";
 
 import { SubtitleColorful } from "../SubtitleColorful";
+import { EvolutionChart } from "../EvolutionChart";
 
 import { Pokemon } from "../../interfaces/Pokemon";
 
 import * as S from "./Evolution.Styled";
-import { EvolutionChart } from "../EvolutionChart";
 
 export function Evolution() {
   const { singlePokemon } = useGetSinglePokemon();
@@ -21,48 +21,51 @@ export function Evolution() {
     <S.EvolutionComponent>
       <SubtitleColorful subtitle="Evolution Chart" />
 
+      {/* Does not evolve. ex: Kangaskhan , Heracross */}
       {!evolutionDetails?.evolves_to.length && (
-        <p>
+        <p style={{ textAlign: "center", fontWeight: 700 }}>
           {Util.UpperCaseFirsLetter(evolutionDetails?.species.name as string)}{" "}
           does not evolve!
         </p>
       )}
 
+      {/* Have more than one second form. ex: Eevee, Tyrogue */}
       {(evolutionDetails?.evolves_to.length as number) > 1 &&
-        evolutionDetails?.evolves_to.map((item, index) => (
+        evolutionDetails?.evolves_to.map((plusSecondForm, index) => (
           <p key={index}>
-            Alternativa {index + 1} -{" "}
-            {Util.UpperCaseFirsLetter(evolutionDetails?.species.name as string)}{" "}
-            evolui para {Util.UpperCaseFirsLetter(item.species.name)}
+            {evolutionDetails?.species.name as string} evolui para{" "}
+            {plusSecondForm.species.name}
           </p>
         ))}
 
+      {/* Have just one second form. ex: Bulbasaur, Growlithe */}
       {(evolutionDetails?.evolves_to.length as number) === 1 &&
-        evolutionDetails?.evolves_to.map((item, index) => (
+        evolutionDetails?.evolves_to.map((secondForm, index) => (
           <>
             <p key={index}>
-              {Util.UpperCaseFirsLetter(
-                evolutionDetails?.species.name as string
-              )}{" "}
-              evolui para {Util.UpperCaseFirsLetter(item.species.name)}
+              {evolutionDetails?.species.name as string} evolui para{" "}
+              {secondForm.species.name}
             </p>
 
-            {item.evolves_to.length === 1 && (
-              <p>
-                {Util.UpperCaseFirsLetter(item.species.name)} evolui para{" "}
-                {item.evolves_to.map((itemEvo) => (
-                  <>{Util.UpperCaseFirsLetter(itemEvo.species.name)}</>
+            {/* Have just one final form. ex: Ivysaur, Machoke*/}
+            {secondForm.evolves_to.length === 1 && (
+              <>
+                {secondForm.evolves_to.map((thirdForm) => (
+                  <p>
+                    {secondForm.species.name} evolui para{" "}
+                    {thirdForm.species.name}
+                  </p>
                 ))}
-              </p>
+              </>
             )}
 
-            {item.evolves_to.length > 1 && (
+            {/* Have more than one final form. ex: Gloom, Poliwhirl */}
+            {secondForm.evolves_to.length > 1 && (
               <>
-                {item.evolves_to.map((evolution, index) => (
+                {secondForm.evolves_to.map((plusThirdForm, index) => (
                   <p key={index}>
-                    Alternativa {index + 1} -{" "}
-                    {Util.UpperCaseFirsLetter(item.species.name)} evolui para{" "}
-                    {Util.UpperCaseFirsLetter(evolution.species.name)}
+                    {secondForm.species.name} evolui para{" "}
+                    {plusThirdForm.species.name}
                   </p>
                 ))}
               </>
