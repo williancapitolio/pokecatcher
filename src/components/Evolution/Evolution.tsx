@@ -7,6 +7,7 @@ import { SubtitleColorful } from "../SubtitleColorful";
 import { Pokemon } from "../../interfaces/Pokemon";
 
 import * as S from "./Evolution.Styled";
+import { EvolutionChart } from "../EvolutionChart";
 
 export function Evolution() {
   const { singlePokemon } = useGetSinglePokemon();
@@ -68,6 +69,15 @@ export function Evolution() {
             )}
           </>
         ))}
+
+      <EvolutionChart
+        evolvesFromId={1}
+        evolvesFromImg="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+        evolvesFromName="Bulbasaur"
+        evolvesToId={2}
+        evolvesToImg="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png"
+        evolvesToName="Ivysaur"
+      />
     </S.EvolutionComponent>
   );
 }
