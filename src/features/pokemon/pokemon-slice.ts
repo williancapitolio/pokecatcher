@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { BASE_URL, getData, getPokemonsData } from "../../services/Api";
+import { BASE_URL, getData } from "../../services/Api";
 
 import * as Util from "../../utils";
 
@@ -49,7 +49,19 @@ export const getPokemons = createAsyncThunk<Page<PokemonResults>, string>(
   "pokemons/getPokemons",
   async (url, thunkAPI) => {
     try {
-      return await getPokemonsData(url ? url : BASE_URL + "/pokemon");
+      const response = await getData<Page<PokemonResults>>(
+        url ? url : BASE_URL
+      );
+
+      for (let index = 0; index < response.results.length; index++) {
+        const current = response.results[index];
+
+        const responsePokemon = (await getData(current.url)) as Pokemon;
+
+        current.pokemon = responsePokemon;
+      }
+
+      return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -60,7 +72,7 @@ export const getSinglePokemon = createAsyncThunk<Pokemon, string>(
   "pokemons/getSinglePokemon",
   async (id, thunkAPI) => {
     try {
-      const pokemonData = await getData<Pokemon>(BASE_URL + "/pokemon/" + id);
+      const pokemonData = await getData<Pokemon>(BASE_URL + id);
 
       const speciesData = await getData<SpeciesPokemon>(
         pokemonData.species.url

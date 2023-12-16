@@ -1,19 +1,35 @@
-import { useGetSinglePokemon } from "./use-get-single-pokemon";
+import { useEffect, useState } from "react";
 
-export function usePokemonEvolutionChart() {
-  const { singlePokemon } = useGetSinglePokemon();
+import { BASE_URL, getData } from "../services/Api";
 
-  const evolutionDetails =
-    singlePokemon?.species.specie?.evolution_chain.evolution?.chain;
+import { Pokemon } from "../interfaces/Pokemon";
+
+export function usePokemonEvolutionChart(from: string, to: string) {
+  const [pokemonFromData, setPokemonFromData] = useState<Pokemon | null>(null);
+  const [pokemonToData, setPokemonToData] = useState<Pokemon | null>(null);
+
+  useEffect(() => {
+    const getPokemonEvolutionChartData = async (
+      pokemonNameEndpoint: string,
+      setData: React.Dispatch<React.SetStateAction<Pokemon | null>>
+    ) => {
+      const res = await getData<Pokemon>(BASE_URL + pokemonNameEndpoint);
+
+      setData(res);
+    };
+
+    getPokemonEvolutionChartData(from, setPokemonFromData);
+
+    getPokemonEvolutionChartData(to, setPokemonToData);
+  }, [from, to]);
+
+  return { pokemonFromData, pokemonToData };
 
   //Cases:
 
   //1. Does not evolve. ex: Kangaskhan , Heracross
-  const pokemonDoNotEnvolve = !evolutionDetails?.evolves_to.length;
 
   //2. Have more than one second form. ex: Eevee, Wurmple
-  const pokemonHaveMoreThanOneSecondForm =
-    (evolutionDetails?.evolves_to.length as number) > 1;
 
   //3. Have more than one second and third form. ex: Silcoon and Cascoon (most peculiar)
 
@@ -22,10 +38,4 @@ export function usePokemonEvolutionChart() {
   //5. Have more than one third form. ex: Gloom, Poliwhirl
 
   //6. Have just one third form. ex: Ivysaur, Machoke
-
-  return {
-    evolutionDetails,
-    pokemonDoNotEnvolve,
-    pokemonHaveMoreThanOneSecondForm,
-  };
 }
