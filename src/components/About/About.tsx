@@ -17,7 +17,15 @@ export function About() {
     pokemon.species.specie?.flavor_text_entries.findIndex(
       (item) =>
         item.version.name === "alpha-sapphire" && item.language.name === "en"
-    );
+    ) !== -1
+      ? pokemon.species.specie?.flavor_text_entries.findIndex(
+          (item) =>
+            item.version.name === "alpha-sapphire" &&
+            item.language.name === "en"
+        )
+      : pokemon.species.specie?.flavor_text_entries.findIndex(
+          (item) => item.language.name === "en"
+        );
 
   const correctGeneraIndex = pokemon.species.specie?.genera.findIndex(
     (item) => item.language.name === "en"
@@ -84,7 +92,10 @@ export function About() {
                   ).map((item, index) => (
                     <span
                       key={index}
-                      style={{ color: !index ? "blue" : "deeppink", fontWeight: 500}}
+                      style={{
+                        color: !index ? "blue" : "deeppink",
+                        fontWeight: 500,
+                      }}
                     >
                       {item}
                     </span>

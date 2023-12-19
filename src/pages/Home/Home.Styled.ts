@@ -11,6 +11,7 @@ export const Content = styled.div`
   align-items: center;
   gap: 1rem;
   padding: 1rem;
+  width: 100%;
 `;
 
 export const CardsLayout = styled.div`
@@ -19,6 +20,7 @@ export const CardsLayout = styled.div`
   justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
+  width: 100%;
 `;
 
 export const Pagination = styled.div`

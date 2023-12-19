@@ -29,11 +29,15 @@ export const Img = styled.img`
 
   @media (max-width: 20.625rem) {
     width: 3.25rem;
-  height: 3.25rem;
+    height: 3.25rem;
   }
 `;
 
 export const PokemonName = styled.h4`
   font-size: ${(props) => props.theme.fonts.sizes.description.size};
   font-weight: ${(props) => props.theme.fonts.sizes.pokemonName.weight};
+
+  &:hover {
+    opacity: 0.85;
+  }
 `;

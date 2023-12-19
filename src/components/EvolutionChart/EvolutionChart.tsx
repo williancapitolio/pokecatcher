@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { usePokemonEvolutionChart } from "../../hooks/use-pokemon-evolution-chart";
 
 import { BsArrowRight } from "react-icons/bs";
@@ -38,9 +40,11 @@ export function EvolutionChart({
             </S.ImgContent>
 
             <TextIdPokemon idPokemon={pokemonFromData?.id} />
-            <S.PokemonName>
-              {Util.UpperCaseFirsLetter(evolvesFromName)}
-            </S.PokemonName>
+            <Link to={"/pokemon/" + pokemonFromData?.id}>
+              <S.PokemonName>
+                {Util.UpperCaseFirsLetter(evolvesFromName)}
+              </S.PokemonName>
+            </Link>
           </>
         )}
       </S.InfoEvolution>
@@ -60,9 +64,11 @@ export function EvolutionChart({
             </S.ImgContent>
 
             <TextIdPokemon idPokemon={pokemonToData?.id} />
-            <S.PokemonName>
-              {Util.UpperCaseFirsLetter(evolvesToName)}
-            </S.PokemonName>
+            <Link to={"/pokemon/" + pokemonToData?.id}>
+              <S.PokemonName>
+                {Util.UpperCaseFirsLetter(evolvesToName)}
+              </S.PokemonName>
+            </Link>
           </>
         )}
       </S.InfoEvolution>

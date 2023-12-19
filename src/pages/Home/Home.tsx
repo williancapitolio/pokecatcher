@@ -1,4 +1,5 @@
 import { useHomePokemons } from "../../hooks/use-home-pokemons";
+import { useSearchPokemon } from "../../hooks/use-search-pokemon";
 import { useImportImg } from "../../hooks/use-import-img";
 
 import { LoadingAnimation } from "../../components/LoadingAnimation";
@@ -11,6 +12,13 @@ import * as S from "./Home.Styled";
 export function Home() {
   const { pokemons, loading, handlePaginatePokemons } = useHomePokemons();
 
+  const {
+    searchText,
+    handleChangeInputPokemon,
+    handleSearchPokemon,
+    searchResult,
+  } = useSearchPokemon();
+
   const { Logo } = useImportImg();
 
   return (
@@ -20,31 +28,40 @@ export function Home() {
         {loading && <LoadingAnimation />}
         {pokemons && (
           <>
-            <InpuSearchPokemon />
+            <InpuSearchPokemon
+              inputValue={searchText}
+              handleChange={handleChangeInputPokemon}
+              handleBlur={handleSearchPokemon}
+            />
 
             <S.CardsLayout>
-              {pokemons.results.map((pokemon, index) => (
-                <CardPokemon key={index} pokemon={pokemon.pokemon} />
-              ))}
+              {!searchResult &&
+                pokemons.results.map((pokemon, index) => (
+                  <CardPokemon key={index} pokemon={pokemon.pokemon} />
+                ))}
+
+              {searchResult && <CardPokemon pokemon={searchResult} />}
             </S.CardsLayout>
 
-            <S.Pagination>
-              <ButtonPaginate
-                isDisabled={pokemons.previous ? false : true}
-                handleClick={(ev) =>
-                  handlePaginatePokemons(pokemons.previous as string, ev)
-                }
-                text={"<"}
-              />
+            {!searchResult && (
+              <S.Pagination>
+                <ButtonPaginate
+                  isDisabled={pokemons.previous ? false : true}
+                  handleClick={(ev) =>
+                    handlePaginatePokemons(pokemons.previous as string, ev)
+                  }
+                  text={"<"}
+                />
 
-              <ButtonPaginate
-                isDisabled={pokemons.next ? false : true}
-                handleClick={(ev) =>
-                  handlePaginatePokemons(pokemons.next as string, ev)
-                }
-                text={">"}
-              />
-            </S.Pagination>
+                <ButtonPaginate
+                  isDisabled={pokemons.next ? false : true}
+                  handleClick={(ev) =>
+                    handlePaginatePokemons(pokemons.next as string, ev)
+                  }
+                  text={">"}
+                />
+              </S.Pagination>
+            )}
           </>
         )}
       </S.Content>
