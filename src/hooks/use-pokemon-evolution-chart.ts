@@ -9,14 +9,14 @@ export function usePokemonEvolutionChart(from: string, to: string) {
   const [pokemonToData, setPokemonToData] = useState<Pokemon | null>(null);
 
   useEffect(() => {
-    const getPokemonEvolutionChartData = async (
+    async function getPokemonEvolutionChartData(
       pokemonNameEndpoint: string,
       setData: React.Dispatch<React.SetStateAction<Pokemon | null>>
-    ) => {
+    ) {
       const res = await getData<Pokemon>(BASE_URL + pokemonNameEndpoint);
 
       setData(res);
-    };
+    }
 
     getPokemonEvolutionChartData(from, setPokemonFromData);
 
