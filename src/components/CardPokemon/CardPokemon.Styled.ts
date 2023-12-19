@@ -7,7 +7,8 @@ type CardProps = {
 export const Card = styled.div<CardProps>`
   position: relative;
   height: 7.1875rem;
-  width: 20.875rem;
+  max-width: 20.875rem;
+  width: 100%;
   background-color: ${(props) => props.$pokeType};
   display: flex;
   flex-direction: column;
@@ -19,10 +20,15 @@ export const Card = styled.div<CardProps>`
 `;
 
 export const Img = styled.img`
-  width: 8.125rem;
+  max-width: 8.125rem;
   position: absolute;
   right: 0.5rem;
   top: -2rem;
+
+  @media (max-width: 19.9rem) {
+    max-width: 5.5rem;
+    top: -2.5rem;
+  }
 `;
 
 export const Name = styled.span`

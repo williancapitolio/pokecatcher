@@ -3,12 +3,12 @@ import styled from "styled-components";
 export const Logo = styled.img`
   max-width: 15rem;
   width: 100%;
-  margin-bottom: 1rem;
 `;
 
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
   padding: 1rem;
 `;

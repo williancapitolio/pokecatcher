@@ -2,6 +2,7 @@ import { useHomePokemons } from "../../hooks/use-home-pokemons";
 import { useImportImg } from "../../hooks/use-import-img";
 
 import { LoadingAnimation } from "../../components/LoadingAnimation";
+import { InpuSearchPokemon } from "../../components/InpuSearchPokemon";
 import { CardPokemon } from "../../components/CardPokemon";
 import { ButtonPaginate } from "../../components/ButtonPaginate";
 
@@ -14,13 +15,13 @@ export function Home() {
 
   return (
     <>
-      <S.Logo src={Logo} alt="Logo PokeCatcher" />
-
-      {loading && <LoadingAnimation />}
-
       <S.Content>
+        <S.Logo src={Logo} alt="Logo PokeCatcher" />
+        {loading && <LoadingAnimation />}
         {pokemons && (
           <>
+            <InpuSearchPokemon />
+
             <S.CardsLayout>
               {pokemons.results.map((pokemon, index) => (
                 <CardPokemon key={index} pokemon={pokemon.pokemon} />

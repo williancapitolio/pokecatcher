@@ -1,0 +1,1 @@
+export { InpuSearchPokemon } from "./InpuSearchPokemon";
