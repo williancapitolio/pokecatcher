@@ -6,7 +6,6 @@ import { getPokemons } from "../features/pokemon/pokemon-slice";
 
 export function useHomePokemons() {
   const { pokemons, loading } = useAppSelector((state) => state.pokemon);
-  console.log(pokemons.results)
 
   const dispatch = useAppDispatch();
 
