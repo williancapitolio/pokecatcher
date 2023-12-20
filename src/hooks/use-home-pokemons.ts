@@ -5,6 +5,9 @@ import { useAppDispatch, useAppSelector } from "./use-app-redux";
 import { getPokemons } from "../features/pokemon/pokemon-slice";
 
 export function useHomePokemons() {
+  const { pokemons, loading } = useAppSelector((state) => state.pokemon);
+  console.log(pokemons.results)
+
   const dispatch = useAppDispatch();
 
   const initApp = useCallback(async () => {
@@ -12,10 +15,8 @@ export function useHomePokemons() {
   }, [dispatch]);
 
   useEffect(() => {
-    initApp();
-  }, [initApp]);
-
-  const { pokemons, loading } = useAppSelector((state) => state.pokemon);
+    !pokemons.results.length && initApp();
+  }, [initApp, pokemons.results.length]);
 
   async function handlePaginatePokemons(
     url: string,

@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 
 import { store } from "./store";
 
-import { StylesProvider } from "./providers/StylesProvider";
+import { StylesProvider } from "./contexts/StylesProvider";
 
 import { App } from "./App";
 
