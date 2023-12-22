@@ -1,19 +1,25 @@
 import { useGetSinglePokemon } from "../../hooks/use-get-single-pokemon";
 
+import { toggleFavorite } from "../../features/pokemon/pokemon-slice";
+
 import { IconType } from "../../components/IconType";
 import { TextIdPokemon } from "../../components/TextIdPokemon";
 import { About } from "../../components/About";
 import { Stats } from "../../components/Stats";
 import { Evolution } from "../../components/Evolution";
+import { ButtonActionImg } from "../../components/ButtonActionImg";
 
 import { BsArrowLeft } from "react-icons/bs";
 
 import * as Util from "../../utils";
 
+import HeartEmpty from "../../assets/img/heart-empty.png";
+import HeartFill from "../../assets/img/heart-fill.png";
+
 import * as S from "./Pokemon.Styled";
 
 export function Pokemon() {
-  const { navigate, singlePokemon, currentPage, handleChangePage } =
+  const { navigate, dispatch, singlePokemon, currentPage, handleChangePage } =
     useGetSinglePokemon();
 
   return (
@@ -27,6 +33,23 @@ export function Pokemon() {
           <a onClick={() => navigate(-1)}>
             <BsArrowLeft className={"arrowBack"} />
           </a>
+
+          <div className={"favoritePokemon"}>
+            <ButtonActionImg
+              handleClick={() => dispatch(toggleFavorite(singlePokemon.id))}
+              color={(props) => props.theme.colors.background.defaultBtn}
+              imgSrc={
+                Util.FindOnLocalStorage("pokemons-favorites", singlePokemon.id)
+                  ? HeartFill
+                  : HeartEmpty
+              }
+              imgAlt={
+                Util.FindOnLocalStorage("pokemons-favorites", singlePokemon.id)
+                  ? "Desfavoritar"
+                  : "Favoritar"
+              }
+            />
+          </div>
 
           <S.MainContent>
             <S.PokemonImg

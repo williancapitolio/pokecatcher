@@ -27,6 +27,12 @@ export const PokemonPage = styled.div<PokemonPageProps>`
       border-radius: 50%;
     }
   }
+
+  .favoritePokemon{
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+  }
 `;
 
 export const MainContent = styled.div`
