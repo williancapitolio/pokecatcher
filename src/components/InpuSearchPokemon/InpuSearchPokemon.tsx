@@ -5,13 +5,13 @@ import * as S from "./InpuSearchPokemon.Styled";
 type InpuSearchPokemonProps = {
   inputValue: string;
   handleChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
-  handleBlur: () => void;
+  handleEnter: () => void;
 };
 
 export function InpuSearchPokemon({
   inputValue,
   handleChange,
-  handleBlur,
+  handleEnter,
 }: InpuSearchPokemonProps) {
   return (
     <>
@@ -27,7 +27,7 @@ export function InpuSearchPokemon({
           autoComplete="off"
           value={inputValue}
           onChange={handleChange}
-          onBlur={handleBlur}
+          onKeyDown={(ev) => ev.key === "Enter" && handleEnter()}
         />
         <BsSearch />
       </S.InpuSearch>

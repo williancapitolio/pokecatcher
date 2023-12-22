@@ -1,11 +1,12 @@
 import { useHomePokemons } from "../../hooks/use-home-pokemons";
 import { useSearchPokemon } from "../../hooks/use-search-pokemon";
-import { useImportImg } from "../../hooks/use-import-img";
 
 import { LoadingAnimation } from "../../components/LoadingAnimation";
 import { InpuSearchPokemon } from "../../components/InpuSearchPokemon";
 import { CardPokemon } from "../../components/CardPokemon";
 import { ButtonPaginate } from "../../components/ButtonPaginate";
+
+import Logo from "../../assets/img/logo.png";
 
 import * as S from "./Home.Styled";
 
@@ -19,8 +20,6 @@ export function Home() {
     searchResult,
   } = useSearchPokemon();
 
-  const { Logo } = useImportImg();
-
   return (
     <>
       <S.Content>
@@ -31,7 +30,7 @@ export function Home() {
             <InpuSearchPokemon
               inputValue={searchText}
               handleChange={handleChangeInputPokemon}
-              handleBlur={handleSearchPokemon}
+              handleEnter={handleSearchPokemon}
             />
 
             <S.CardsLayout>

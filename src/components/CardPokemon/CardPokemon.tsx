@@ -1,19 +1,18 @@
 import { Link } from "react-router-dom";
 
-import {
-  toggleCapture,
-  toggleFavorite,
-} from "../../features/pokemon/pokemon-slice";
+import { toggleFavorite } from "../../features/pokemon/pokemon-slice";
 import { setScrollYPosition } from "../../features/scrollbar/scrollbar-slice";
 
 import { useAppDispatch } from "../../hooks/use-app-redux";
-import { useImportImg } from "../../hooks/use-import-img";
 
 import * as Util from "../../utils";
 
 import { IconType } from "../IconType";
 import { ButtonActionImg } from "../ButtonActionImg";
 import { TextIdPokemon } from "../TextIdPokemon";
+
+import HeartEmpty from "../../assets/img/heart-empty.png";
+import HeartFill from "../../assets/img/heart-fill.png";
 
 import * as S from "./CardPokemon.Styled";
 
@@ -25,8 +24,6 @@ type CardPokemonProps = {
 
 export function CardPokemon({ pokemon }: CardPokemonProps) {
   const dispatch = useAppDispatch();
-
-  const { Pokeball, PokeballOpen, HeartEmpty, HeartFill } = useImportImg();
 
   return (
     <S.Card
@@ -62,7 +59,7 @@ export function CardPokemon({ pokemon }: CardPokemonProps) {
       <S.Actions>
         <ButtonActionImg
           handleClick={() => dispatch(toggleFavorite(pokemon.id))}
-          color={(props) => props.theme.colors.logo.inside}
+          color={(props) => props.theme.colors.background.defaultBtn}
           imgSrc={
             Util.FindOnLocalStorage("pokemons-favorites", pokemon.id)
               ? HeartFill
@@ -72,21 +69,6 @@ export function CardPokemon({ pokemon }: CardPokemonProps) {
             Util.FindOnLocalStorage("pokemons-favorites", pokemon.id)
               ? "Desfavoritar"
               : "Favoritar"
-          }
-        />
-
-        <ButtonActionImg
-          handleClick={() => dispatch(toggleCapture(pokemon.id))}
-          color={(props) => props.theme.colors.background.defaultBtn}
-          imgSrc={
-            Util.FindOnLocalStorage("pokemons-captured", pokemon.id)
-              ? PokeballOpen
-              : Pokeball
-          }
-          imgAlt={
-            Util.FindOnLocalStorage("pokemons-captured", pokemon.id)
-              ? "Libertar"
-              : "Capturar"
           }
         />
       </S.Actions>

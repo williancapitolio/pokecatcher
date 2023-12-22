@@ -17,13 +17,11 @@ interface PokemonState {
   pokemons: Page<PokemonResults>;
   singlePokemon: Pokemon | null;
   pokemonsFavorites: Array<string>;
-  pokemonsCaptured: Array<string>;
   loading: boolean;
   errors: unknown;
 }
 
 const POKEMONS_FAVORITES = "pokemons-favorites";
-const POKEMONS_CAPTURED = "pokemons-captured";
 
 const initialState: PokemonState = {
   pokemons: {
@@ -35,10 +33,6 @@ const initialState: PokemonState = {
   singlePokemon: null,
   pokemonsFavorites: Util.GetLocalStorageData<Array<string>>(
     POKEMONS_FAVORITES,
-    []
-  ),
-  pokemonsCaptured: Util.GetLocalStorageData<Array<string>>(
-    POKEMONS_CAPTURED,
     []
   ),
   loading: false,
@@ -117,27 +111,6 @@ export const pokemonSlice = createSlice({
         );
       }
     },
-    toggleCapture: (state, action: PayloadAction<number>) => {
-      const pokemonToCapture = state.pokemons.results.find(
-        (poke) => poke.pokemon.id === action.payload
-      );
-      if (pokemonToCapture) {
-        const pokemonToCaptureId = String(pokemonToCapture.pokemon.id);
-
-        if (state.pokemonsCaptured.includes(pokemonToCaptureId)) {
-          state.pokemonsCaptured = state.pokemonsCaptured.filter(
-            (captured) => captured !== pokemonToCaptureId
-          );
-        } else {
-          state.pokemonsCaptured.push(pokemonToCaptureId);
-        }
-
-        localStorage.setItem(
-          POKEMONS_CAPTURED,
-          JSON.stringify(state.pokemonsCaptured)
-        );
-      }
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(getPokemons.pending, (state) => {
@@ -169,4 +142,4 @@ export const pokemonSlice = createSlice({
   },
 });
 
-export const { toggleFavorite, toggleCapture } = pokemonSlice.actions;
+export const { toggleFavorite } = pokemonSlice.actions;
