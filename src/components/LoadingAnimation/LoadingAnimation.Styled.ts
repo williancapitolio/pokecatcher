@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Loader = styled.div`
+  z-index: 1;
   margin: 0.625rem;
   width: 6.25rem;
   height: 6.25rem;

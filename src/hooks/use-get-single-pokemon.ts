@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { Link, useParams } from "react-router-dom";
+import { /* Link,  */useNavigate, useParams } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "./use-app-redux";
 
@@ -15,6 +15,8 @@ export function useGetSinglePokemon() {
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  const navigate = useNavigate()
+
   function handleChangePage(page: number) {
     setCurrentPage(page);
   }
@@ -24,8 +26,12 @@ export function useGetSinglePokemon() {
   }, [dispatch, id]);
 
   useEffect(() => {
-    singlePokemonData();
-  }, [singlePokemonData]);
+    //id !== singlePokemon?.id.toString() && singlePokemonData();
+    if (id !== singlePokemon?.id.toString()) {
+      singlePokemonData();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [id, singlePokemon?.id, singlePokemonData]);
 
-  return { Link, singlePokemon, currentPage, handleChangePage };
+  return { navigate, singlePokemon, currentPage, handleChangePage };
 }

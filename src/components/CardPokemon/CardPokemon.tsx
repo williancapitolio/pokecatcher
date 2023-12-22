@@ -4,6 +4,7 @@ import {
   toggleCapture,
   toggleFavorite,
 } from "../../features/pokemon/pokemon-slice";
+import { setScrollYPosition } from "../../features/scrollbar/scrollbar-slice";
 
 import { useAppDispatch } from "../../hooks/use-app-redux";
 import { useImportImg } from "../../hooks/use-import-img";
@@ -12,11 +13,11 @@ import * as Util from "../../utils";
 
 import { IconType } from "../IconType";
 import { ButtonActionImg } from "../ButtonActionImg";
+import { TextIdPokemon } from "../TextIdPokemon";
 
 import * as S from "./CardPokemon.Styled";
 
 import { Pokemon } from "../../interfaces/Pokemon";
-import { TextIdPokemon } from "../TextIdPokemon";
 
 type CardPokemonProps = {
   pokemon: Pokemon;
@@ -40,7 +41,10 @@ export function CardPokemon({ pokemon }: CardPokemonProps) {
         alt={"Imagem de " + pokemon.name}
       />
 
-      <Link to={"/pokemon/" + pokemon.id}>
+      <Link
+        to={"/pokemon/" + pokemon.id}
+        onClick={() => dispatch(setScrollYPosition(window.scrollY))}
+      >
         <S.Name>{Util.UpperCaseFirsLetter(pokemon.name)}</S.Name>
       </Link>
 

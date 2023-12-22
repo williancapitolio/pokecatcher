@@ -1,21 +1,10 @@
-import { FindOnLocalStorage } from "./find-on-local-storage";
-import { GetBgColorByType } from "./get-bg-color-by-type";
-import { GetColorByType } from "./get-color-by-type";
-import { GetGenderRate } from "./get-gender-rate";
-import { GetHpStat } from "./get-hp-stat";
-import { GetLocalStorageData } from "./get-local-storage-data";
-import { GetOtherStats } from "./get-other-stats";
-import { GetSvgType } from "./get-svg-by-type";
-import { UpperCaseFirsLetter } from "./upper-case-first-letter";
-
-export {
-  FindOnLocalStorage,
-  GetBgColorByType,
-  GetColorByType,
-  GetGenderRate,
-  GetHpStat,
-  GetLocalStorageData,
-  GetOtherStats,
-  GetSvgType,
-  UpperCaseFirsLetter,
-};
+export { FindOnLocalStorage } from "./find-on-local-storage";
+export { GetBgColorByType } from "./get-bg-color-by-type";
+export { GetColorByType } from "./get-color-by-type";
+export { GetGenderRate } from "./get-gender-rate";
+export { GetHpStat } from "./get-hp-stat";
+export { GetLocalStorageData } from "./get-local-storage-data";
+export { GetOtherStats } from "./get-other-stats";
+export { GetSvgType } from "./get-svg-by-type";
+export { ScrollYPosition } from "./scroll-y-position";
+export { UpperCaseFirsLetter } from "./upper-case-first-letter";

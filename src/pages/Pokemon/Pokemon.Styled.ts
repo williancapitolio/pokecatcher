@@ -16,6 +16,7 @@ export const PokemonPage = styled.div<PokemonPageProps>`
     position: absolute;
     top: 2rem;
     left: 2rem;
+    cursor: pointer;
 
     path {
       fill: ${(props) => props.theme.colors.text.white};

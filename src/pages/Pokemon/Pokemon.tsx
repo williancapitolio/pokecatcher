@@ -13,7 +13,7 @@ import * as Util from "../../utils";
 import * as S from "./Pokemon.Styled";
 
 export function Pokemon() {
-  const { Link, singlePokemon, currentPage, handleChangePage } =
+  const { navigate, singlePokemon, currentPage, handleChangePage } =
     useGetSinglePokemon();
 
   return (
@@ -24,9 +24,9 @@ export function Pokemon() {
             singlePokemon.types.map(({ type }) => type.name)[0]
           )}
         >
-          <Link to={"/"}>
+          <a onClick={() => navigate(-1)}>
             <BsArrowLeft className={"arrowBack"} />
-          </Link>
+          </a>
 
           <S.MainContent>
             <S.PokemonImg

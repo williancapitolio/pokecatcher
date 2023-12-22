@@ -4,6 +4,8 @@ import { useAppDispatch, useAppSelector } from "./use-app-redux";
 
 import { getPokemons } from "../features/pokemon/pokemon-slice";
 
+import * as Util from "../utils";
+
 export function useHomePokemons() {
   const { pokemons, loading } = useAppSelector((state) => state.pokemon);
 
@@ -32,6 +34,8 @@ export function useHomePokemons() {
       button.innerText = initialButtonValue;
     });
   }
+
+  Util.ScrollYPosition();
 
   return { pokemons, loading, handlePaginatePokemons };
 }
