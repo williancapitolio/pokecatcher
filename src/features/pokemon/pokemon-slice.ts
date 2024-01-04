@@ -87,6 +87,26 @@ export const getSinglePokemon = createAsyncThunk<Pokemon, string>(
   }
 );
 
+export const getPokemonsFavoritesList = createAsyncThunk<
+  Array<Pokemon>,
+  Array<string>
+>("pokemons/getPokemonsFavoritesList", async (favorites, thunkAPI) => {
+  try {
+    if (!favorites.length) return [];
+
+    const favoritesList: Pokemon[] = [];
+
+    for (let index = 0; index < favorites.length; index++) {
+      const response = await getData<Pokemon>(BASE_URL + favorites[index]);
+      favoritesList.push(response);
+    }
+
+    return favoritesList;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
 export const pokemonSlice = createSlice({
   name: "pokemons",
   initialState,
@@ -138,6 +158,19 @@ export const pokemonSlice = createSlice({
       state.errors = null;
     });
     builder.addCase(getSinglePokemon.rejected, (state, action) => {
+      state.loading = false;
+      state.errors = action.payload;
+    });
+    builder.addCase(getPokemonsFavoritesList.pending, (state) => {
+      state.loading = true;
+      state.errors = null;
+    });
+    builder.addCase(getPokemonsFavoritesList.fulfilled, (state, action) => {
+      state.pokemonsFavoritesList = action.payload;
+      state.loading = false;
+      state.errors = null;
+    });
+    builder.addCase(getPokemonsFavoritesList.rejected, (state, action) => {
       state.loading = false;
       state.errors = action.payload;
     });
