@@ -17,6 +17,7 @@ interface PokemonState {
   pokemons: Page<PokemonResults>;
   singlePokemon: Pokemon | null;
   pokemonsFavorites: Array<string>;
+  pokemonsFavoritesList: Array<Pokemon>;
   loading: boolean;
   errors: unknown;
 }
@@ -35,6 +36,7 @@ const initialState: PokemonState = {
     POKEMONS_FAVORITES,
     []
   ),
+  pokemonsFavoritesList: [],
   loading: false,
   errors: null,
 };

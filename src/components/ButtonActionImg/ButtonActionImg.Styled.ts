@@ -2,11 +2,12 @@ import styled, { ExecutionContext } from "styled-components";
 
 type ActionBtnProps = {
   $bgColor: string | ((props: ExecutionContext) => string);
+  $btnSize: string | ((props: ExecutionContext) => string);
 };
 
 export const ActionBtn = styled.button<ActionBtnProps>`
-  width: 1.75rem;
-  height: 1.75rem;
+  width: ${(props) => props.$btnSize || "1.75rem"};
+  height: ${(props) => props.$btnSize || "1.75rem"};
   border: none;
   background-color: ${(props) => props.$bgColor};
   border-radius: 50%;
@@ -14,8 +15,16 @@ export const ActionBtn = styled.button<ActionBtnProps>`
   flex: row;
   align-items: center;
   justify-content: center;
+
+  &:hover {
+    opacity: 0.85;
+  }
 `;
 
-export const ActionImg = styled.img`
-  width: 1.5rem;
+type ActionImgProps = {
+  $logoSize: string | ((props: ExecutionContext) => string);
+};
+
+export const ActionImg = styled.img<ActionImgProps>`
+  width: ${(props) => props.$logoSize || "1.5rem"};
 `;

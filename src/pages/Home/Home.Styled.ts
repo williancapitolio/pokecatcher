@@ -12,6 +12,14 @@ export const Content = styled.div`
   gap: 1rem;
   padding: 1rem;
   width: 100%;
+  position: relative;
+`;
+
+export const FavoritesButton = styled.div`
+  position: fixed;
+  z-index: 10;
+  right: 2rem;
+  bottom: 2rem;
 `;
 
 export const CardsLayout = styled.div`

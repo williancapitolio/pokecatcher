@@ -60,6 +60,8 @@ export function CardPokemon({ pokemon }: CardPokemonProps) {
         <ButtonActionImg
           handleClick={() => dispatch(toggleFavorite(pokemon.id))}
           color={(props) => props.theme.colors.background.defaultBtn}
+          sizeBtn={""}
+          sizeLogo={""}
           imgSrc={
             Util.FindOnLocalStorage("pokemons-favorites", pokemon.id)
               ? HeartFill

@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import { useHomePokemons } from "../../hooks/use-home-pokemons";
 import { useSearchPokemon } from "../../hooks/use-search-pokemon";
 
@@ -5,8 +7,10 @@ import { LoadingAnimation } from "../../components/LoadingAnimation";
 import { InpuSearchPokemon } from "../../components/InpuSearchPokemon";
 import { CardPokemon } from "../../components/CardPokemon";
 import { ButtonPaginate } from "../../components/ButtonPaginate";
+import { ButtonActionImg } from "../../components/ButtonActionImg";
 
 import Logo from "../../assets/img/logo.png";
+import HeartFill from "../../assets/img/heart-fill.png";
 
 import * as S from "./Home.Styled";
 
@@ -20,6 +24,8 @@ export function Home() {
     searchResult,
   } = useSearchPokemon();
 
+  const navigate = useNavigate();
+
   return (
     <>
       <S.Content>
@@ -32,6 +38,16 @@ export function Home() {
               handleChange={handleChangeInputPokemon}
               handleEnter={handleSearchPokemon}
             />
+            <S.FavoritesButton>
+              <ButtonActionImg
+                handleClick={() => navigate("/favorites")}
+                color={(props) => props.theme.colors.background.defaultBtn}
+                sizeBtn={"2.5rem"}
+                sizeLogo={"2rem"}
+                imgSrc={HeartFill}
+                imgAlt="Favorites Icon"
+              />
+            </S.FavoritesButton>
 
             <S.CardsLayout>
               {!searchResult &&
