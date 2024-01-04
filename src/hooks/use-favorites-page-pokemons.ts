@@ -17,7 +17,7 @@ export function useFavoritesPagePokemons() {
 
   useEffect(() => {
     fetchPokemonsFavorites();
-  }, [fetchPokemonsFavorites]);
+  }, [dispatch, fetchPokemonsFavorites]);
 
   return { pokemonsFavoritesList, loading };
 }
