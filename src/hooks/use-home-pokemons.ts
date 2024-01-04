@@ -11,13 +11,13 @@ export function useHomePokemons() {
 
   const dispatch = useAppDispatch();
 
-  const initApp = useCallback(async () => {
+  const fetchPokemons = useCallback(async () => {
     await dispatch(getPokemons(""));
   }, [dispatch]);
 
   useEffect(() => {
-    !pokemons.results.length && initApp();
-  }, [initApp, pokemons.results.length]);
+    !pokemons.results.length && fetchPokemons();
+  }, [fetchPokemons, pokemons.results.length]);
 
   async function handlePaginatePokemons(
     url: string,
