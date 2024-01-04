@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "./use-app-redux";
 
@@ -11,13 +11,12 @@ export function useFavoritesPagePokemons() {
 
   const dispatch = useAppDispatch();
 
-  const fetchPokemonsFavorites = useCallback(async () => {
-    await dispatch(getPokemonsFavoritesList(pokemonsFavorites));
-  }, [dispatch, pokemonsFavorites]);
-
   useEffect(() => {
+    async function fetchPokemonsFavorites() {
+      await dispatch(getPokemonsFavoritesList(pokemonsFavorites));
+    }
     fetchPokemonsFavorites();
-  }, [dispatch, fetchPokemonsFavorites]);
+  }, [dispatch, pokemonsFavorites]);
 
   return { pokemonsFavoritesList, loading };
 }

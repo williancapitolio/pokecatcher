@@ -28,14 +28,21 @@ export const Title = styled.h3`
   font-weight: ${(props) => props.theme.fonts.sizes.applicationTitle.weight};
   color: ${(props) => props.theme.colors.text.black};
   text-align: justify;
-  margin-bottom: 1rem;
 `;
 
 export const CardsLayout = styled.div`
+  margin-top: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
   width: 100%;
+`;
+
+export const NotFoundMessage = styled.p`
+  font-size: ${(props) => props.theme.fonts.sizes.description.size};
+  font-weight: ${(props) => props.theme.fonts.sizes.description.weight};
+  color: ${(props) => props.theme.colors.text.grey};
+  text-align: center;
 `;

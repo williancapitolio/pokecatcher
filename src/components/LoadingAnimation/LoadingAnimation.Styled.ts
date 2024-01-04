@@ -7,7 +7,12 @@ export const Loader = styled.div`
   height: 6.25rem;
   border-radius: 50%;
   background-color: ${(props) => props.theme.colors.background.defaultBtn};
-  animation: rotateslide 5s linear infinite;
+  animation: rotateslide 4s linear infinite;
+  position: fixed;
+  top: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @keyframes rotateslide {
     0% {

@@ -29,7 +29,7 @@ export function PokemonsFavorites() {
           imgAlt="Favorites Icon"
         />
       </S.FavoritesButton>
-      <S.Title>Pokemons Favorites</S.Title>
+      <S.Title>Favorites</S.Title>
       {loading && <LoadingAnimation />}
       {pokemonsFavoritesList.length > 0 ? (
         <>
@@ -40,7 +40,7 @@ export function PokemonsFavorites() {
           </S.CardsLayout>
         </>
       ) : (
-        <>Nenhum pokemon favorito</>
+        <S.NotFoundMessage>No favorite Pokémon</S.NotFoundMessage>
       )}
     </S.Content>
   );
