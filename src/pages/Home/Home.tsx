@@ -22,6 +22,7 @@ export function Home() {
     handleChangeInputPokemon,
     handleSearchPokemon,
     searchResult,
+    deleteSearchResult,
   } = useSearchPokemon();
 
   const navigate = useNavigate();
@@ -55,7 +56,15 @@ export function Home() {
                   <CardPokemon key={index} pokemon={pokemon.pokemon} />
                 ))}
 
-              {searchResult && <CardPokemon pokemon={searchResult} />}
+              {searchResult && (
+                <>
+                  <CardPokemon pokemon={searchResult} />
+
+                  <S.ButtonClearSearchResult onClick={deleteSearchResult}>
+                    Clear Search
+                  </S.ButtonClearSearchResult>
+                </>
+              )}
             </S.CardsLayout>
 
             {!searchResult && (

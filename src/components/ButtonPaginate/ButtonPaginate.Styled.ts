@@ -4,7 +4,7 @@ export const BtnPaginate = styled.button`
   height: 2.5rem;
   width: 2.5rem;
   border-radius: 50%;
-  border: 2px solid black;
+  border: 0.125rem solid ${(props) => props.theme.colors.text.black};
   font-size: 1.5rem;
   background-color: ${(props) => props.theme.colors.background.defaultBtn};
   font-weight: 700;

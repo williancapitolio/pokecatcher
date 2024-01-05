@@ -27,10 +27,15 @@ export function useSearchPokemon() {
     }
   }
 
+  function deleteSearchResult() {
+    setSearchResult(null);
+  }
+
   return {
     searchText,
     handleChangeInputPokemon,
     handleSearchPokemon,
     searchResult,
+    deleteSearchResult,
   };
 }
