@@ -40,6 +40,7 @@ export const ButtonClearSearchResult = styled.button`
   border-radius: 0.625rem;
   font-size: 1rem;
   background-color: ${(props) => props.theme.colors.background.pressedInput};
+  color: ${(props) => props.theme.colors.text.black};
 
   &:hover {
     opacity: 0.85;
