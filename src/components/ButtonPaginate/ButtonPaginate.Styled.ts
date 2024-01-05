@@ -8,6 +8,7 @@ export const BtnPaginate = styled.button`
   font-size: 1.5rem;
   background-color: ${(props) => props.theme.colors.background.defaultBtn};
   font-weight: 700;
+  color: ${(props) => props.theme.colors.text.black};
 
   &:hover {
     opacity: 0.85;
