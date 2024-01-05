@@ -1,25 +1,19 @@
 import { useGetSinglePokemon } from "../../hooks/use-get-single-pokemon";
 
-import { toggleFavorite } from "../../features/pokemon/pokemon-slice";
-
 import { IconType } from "../../components/IconType";
 import { TextIdPokemon } from "../../components/TextIdPokemon";
 import { About } from "../../components/About";
 import { Stats } from "../../components/Stats";
 import { Evolution } from "../../components/Evolution";
-import { ButtonActionImg } from "../../components/ButtonActionImg";
 
 import { BsArrowLeft } from "react-icons/bs";
 
 import * as Util from "../../utils";
 
-import HeartEmpty from "../../assets/img/heart-empty.png";
-import HeartFill from "../../assets/img/heart-fill.png";
-
 import * as S from "./Pokemon.Styled";
 
 export function Pokemon() {
-  const { navigate, dispatch, singlePokemon, currentPage, handleChangePage } =
+  const { navigate, singlePokemon, currentPage, handleChangePage } =
     useGetSinglePokemon();
 
   return (
@@ -30,28 +24,15 @@ export function Pokemon() {
             singlePokemon.types.map(({ type }) => type.name)[0]
           )}
         >
-          <a onClick={() => navigate(-1)}>
-            <BsArrowLeft className={"arrowBack"} />
-          </a>
-
-          <div className={"favoritePokemon"}>
-            <ButtonActionImg
-              handleClick={() => dispatch(toggleFavorite(singlePokemon.id))}
-              color={(props) => props.theme.colors.background.defaultBtn}
-              sizeBtn={""}
-              sizeLogo={""}
-              imgSrc={
-                Util.FindOnLocalStorage("pokemons-favorites", singlePokemon.id)
-                  ? HeartFill
-                  : HeartEmpty
-              }
-              imgAlt={
-                Util.FindOnLocalStorage("pokemons-favorites", singlePokemon.id)
-                  ? "Desfavoritar"
-                  : "Favoritar"
-              }
-            />
-          </div>
+          <S.HeaderContent
+            $pokeType={Util.GetColorByType(
+              singlePokemon.types.map(({ type }) => type.name)[0]
+            )}
+          >
+            <a onClick={() => navigate(-1)}>
+              <BsArrowLeft className={"arrowBack"} />
+            </a>
+          </S.HeaderContent>
 
           <S.MainContent>
             <S.PokemonImg
@@ -96,6 +77,10 @@ export function Pokemon() {
             ))}
           </S.Indicators>
           <S.DescriptionContent>
+            <S.PokemonNameHeader>
+              {Util.UpperCaseFirsLetter(singlePokemon.name)}
+            </S.PokemonNameHeader>
+
             {currentPage === 1 && <About />}
             {currentPage === 2 && <Stats />}
             {currentPage === 3 && <Evolution />}

@@ -32,5 +32,5 @@ export function useGetSinglePokemon() {
     }
   }, [id, singlePokemon?.id, singlePokemonData]);
 
-  return { navigate, dispatch, singlePokemon, currentPage, handleChangePage };
+  return { navigate, singlePokemon, currentPage, handleChangePage };
 }

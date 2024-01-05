@@ -23,7 +23,7 @@ export function InpuSearchPokemon({
           type="text"
           name="inpuSearchPokemon"
           id="inpuSearchPokemon"
-          placeholder="Enter to search"
+          placeholder="Type and Enter to search"
           autoComplete="off"
           value={inputValue}
           onChange={handleChange}
