@@ -28,7 +28,7 @@ export function useGetSinglePokemon() {
   useEffect(() => {
     if (id !== singlePokemon?.id.toString()) {
       singlePokemonData();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [id, singlePokemon?.id, singlePokemonData]);
 

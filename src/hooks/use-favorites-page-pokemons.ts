@@ -17,6 +17,7 @@ export function useFavoritesPagePokemons() {
 
   useEffect(() => {
     fetchPokemonsFavorites();
+    scrollTo({ top: 0, behavior: "smooth" });
   }, [dispatch, fetchPokemonsFavorites]);
 
   return { pokemonsFavoritesList, loading };
