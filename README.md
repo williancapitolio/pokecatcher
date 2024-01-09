@@ -63,14 +63,14 @@ Access: [http://localhost:5173](http://localhost:5173)
 
 | Description            | Screenshot |
 |------------------------|------------|
-| Homepage top           | ![]()      |
-| Home page bottom       | ![]()      |
-| Favorites page empty   | ![]()      |
-| Search Pokemon         | ![]()      |
-| Pokemon page About     | ![]()      |
-| Pokemon page Stats     | ![]()      |
-| Pokemon page Evolution | ![]()      |
-| Favorites page filled  | ![]()      |
+| Homepage top           | ![](https://github.com/williancapitolio/pokecatcher/blob/main/docs/screenshots/home-top.jpeg)      |
+| Home page bottom       | ![](https://github.com/williancapitolio/pokecatcher/blob/main/docs/screenshots/home-bottom.jpeg)      |
+| Favorites page empty   | ![](https://github.com/williancapitolio/pokecatcher/blob/main/docs/screenshots/favorites-empty.jpeg)      |
+| Search Pokemon         | ![](https://github.com/williancapitolio/pokecatcher/blob/main/docs/screenshots/search-pokemon.jpeg)      |
+| Pokemon page About     | ![](https://github.com/williancapitolio/pokecatcher/blob/main/docs/screenshots/pokemon-about.jpeg)      |
+| Pokemon page Stats     | ![](https://github.com/williancapitolio/pokecatcher/blob/main/docs/screenshots/pokemon-stats.jpeg)      |
+| Pokemon page Evolution | ![](https://github.com/williancapitolio/pokecatcher/blob/main/docs/screenshots/pokemon-evolution.jpeg)      |
+| Favorites page filled  | ![](https://github.com/williancapitolio/pokecatcher/blob/main/docs/screenshots/favorites-filled.jpeg)      |
 
 ## :rotating_light: Known issues
 
@@ -78,7 +78,8 @@ Access: [http://localhost:5173](http://localhost:5173)
 
 ## :soon: Future implementation
 
-- :grey_question:
+- Add a better Error Page;
+- Toast notification when favorite/unfavorite pokemon and when user enter an National Pokédex number or name;
 
 ## :call_me_hand: Developer
 
